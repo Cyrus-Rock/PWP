@@ -2,7 +2,7 @@
 # Flight Booking Management System
 # Group information
 * Student 1. Alireza Bakhshi Zadi Mahmoodi (Alireza(dot)BakhshiZadiMahmoodi(at)student(dot)oulu(dot)fi)
-* Student 2. Name and email
+* Student 2. Valtteri Kuosmanen (vkuosman(at)student(dot)oulu(dot)fi)
 * Student 3. Name and email
 * Student 4. Name and email 
 
