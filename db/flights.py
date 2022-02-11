@@ -12,3 +12,4 @@ class Flight(db.Model):
     plane_id = db.Column(db.Integer, db.ForeignKey("plane.id", ondelete="SET NULL"))
 
     plane = db.relationship('Plane', back_populates='flight', uselist=False)
+    offers = db.relationship('Offer', back_populates='flight', uselist=True)

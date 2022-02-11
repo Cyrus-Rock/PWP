@@ -8,3 +8,4 @@ class Client(db.Model):
     name = db.Column(db.String(30), nullable=False)
     surename = db.Column(db.String(80), nullable=False)
 
+    offers = db.relationship('Offer', back_populates='client', uselist=True)
