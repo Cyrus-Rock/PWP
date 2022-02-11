@@ -7,3 +7,4 @@ class Order(db.Model):
     offer_id = db.Column(db.Integer, db.ForeignKey("offer.id", ondelete="SET NULL"))
 
     offer = db.relationship('Offer', back_populates='order', uselist=False)
+    reservation = db.relationship('Reservation', back_populates='order', uselist=False)
