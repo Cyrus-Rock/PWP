@@ -62,6 +62,16 @@ class Get:
                 full=full
                 )
 
+    @staticmethod
+    def clients():
+        return [Client(
+                token=f'token{i}',
+                name=f'name{i}',
+                surename=f'surename{i}',
+                created_on=datetime.datetime.now())
+                for i in range(5)
+                ]
+
 
 class Populate:
     @staticmethod
@@ -140,3 +150,12 @@ class Populate:
             db.session.add(f)
         db.session.commit()
 
+    @staticmethod
+    def client(db):
+        '''
+        Populates the client table in the database with 5 default values.
+        '''
+        clients = Get.clients()
+        for c in clients:
+            db.session.add(c)
+        db.session.commit()
