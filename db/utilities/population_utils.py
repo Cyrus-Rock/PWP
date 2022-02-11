@@ -72,6 +72,15 @@ class Get:
                 for i in range(5)
                 ]
 
+    @staticmethod
+    def offer(
+            client,
+            flight,
+            valid_until=datetime.datetime.now()):
+        return Offer(client=client,
+                flight=flight,
+                valid_until=valid_until)
+
 
 class Populate:
     @staticmethod
@@ -159,3 +168,27 @@ class Populate:
         for c in clients:
             db.session.add(c)
         db.session.commit()
+
+
+    @staticmethod
+    def offer(db):
+        '''
+        Populates the offer table in the database with 5 default values. It is assumed
+        that the plane, client, and flight tables have already been populated.
+        '''
+        clients = Client.query.all()
+        flights = Flight.query.all()
+
+        offers = [Get.offer(client=c, flight=f)
+                for c, f in zip(clients, flights)]
+
+        for f, c, o in zip(flights, clients, offers):
+            f.offers.append(o)
+            c.offers.append(o)
+            db.session.add(o)
+
+        db.session.commit()
+
+        
+
+
