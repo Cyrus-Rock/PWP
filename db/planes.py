@@ -8,3 +8,4 @@ class Plane(db.Model):
     updated_on = db.Column(db.DateTime, nullable=False)
 
     flight = db.relationship('Flight', back_populates='plane', uselist=False)
+    seats = db.relationship('Seat', back_populates='plane', uselist=True)
