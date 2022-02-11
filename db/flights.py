@@ -1,5 +1,4 @@
 from config import db
-from planes import Plane
 
 # db is created by the importing module
 class Flight(db.Model):
