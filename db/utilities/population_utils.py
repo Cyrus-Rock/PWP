@@ -3,6 +3,7 @@ Provides utilities to populate database with defalut values.
 '''
 
 import datetime
+import random
 import sys
 sys.path.append('../')
 from config import * # refers to ../ config.py
@@ -28,6 +29,19 @@ class Get:
                 current_location=current_location,
                 updated_on=updated_on
                 )
+
+    @staticmethod
+    def seats(plane):
+        types = ('Business', 'Economic')
+        capacities = random.sample(range(40, 80), 2)
+        return [
+                Seat(
+                    type=t,
+                    capacity=cap,
+                    plane=plane
+                    )
+                for t, cap in zip(types, capacities)
+                ]
 
 class Populate:
     @staticmethod
@@ -65,4 +79,20 @@ class Populate:
         for p in planes:
             db.session.add(p)
         db.session.commit()
+
+
+    @staticmethod
+    def seat(db):
+        '''
+        Populates the seat table in database with some default values. It is assumed
+        that the plane table has already been populated.
+        '''
+        planes = Plane.query.all()
+        for p in planes:
+            seats = Get.seats(p)
+            p.seats.extend(seats)
+            for s in seats:
+                db.session.add(s)
+        db.session.commit()
+
 
