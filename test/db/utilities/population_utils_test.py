@@ -9,6 +9,7 @@ from flights import Flight # refers to ../../db
 from clients import Client # refers to ../../db
 from offers import Offer # refers to ../../db
 from orders import Order # refers to ../../db
+from reservations import Reservation # refers to ../../db
 
 
 def test_populate_plane(db_handle):
@@ -63,3 +64,15 @@ def test_populate_order(db_handle):
     Populate.offer(db_handle)
     Populate.order(db_handle)
     assert Order.query.count() == 3
+
+def test_populate_reservation(db_handle):
+    '''
+    Tests that Populate.reservation creates 3 default values in db.
+    '''
+    Populate.plane(db_handle)
+    Populate.flight(db_handle)
+    Populate.client(db_handle)
+    Populate.offer(db_handle)
+    Populate.order(db_handle)
+    Populate.reservation(db_handle)
+    assert Reservation.query.count() == 3
