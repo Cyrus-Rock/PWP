@@ -26,6 +26,6 @@ def test_create_instance(db_handle):
     db_handle.session.add(offer)
     db_handle.session.commit()
 
-    # check that the seat is in db
+    # check that the offer is in db
     assert Offer.query.count() == 1
 

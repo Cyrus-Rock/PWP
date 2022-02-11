@@ -9,3 +9,4 @@ class Offer(db.Model):
 
     flight = db.relationship('Flight', back_populates='offers', uselist=False)
     client = db.relationship('Client', back_populates='offers', uselist=False)
+    order = db.relationship('Order', back_populates='offer', uselist=False)
