@@ -43,6 +43,26 @@ class Get:
                 for t, cap in zip(types, capacities)
                 ]
 
+    @staticmethod
+    def flight(
+            plane,
+            origin,
+            destination,
+            flight_datetime=datetime.datetime.now(),
+            flight_duration=random.randrange(100, 200), # the unit is in minutes
+            updated_on=datetime.datetime.now(),
+            full=False):
+        return Flight(
+                plane=plane,
+                origin=origin,
+                destination=destination,
+                flight_datetime=flight_datetime,
+                flight_duration=flight_duration,
+                updated_on=updated_on,
+                full=full
+                )
+
+
 class Populate:
     @staticmethod
     def plane(db):
@@ -95,4 +115,28 @@ class Populate:
                 db.session.add(s)
         db.session.commit()
 
+    @staticmethod
+    def flight(db):
+        '''
+        Populates the flight table in database with 5 default values. It is assumed
+        that the plane table has already been populated.
+        '''
+        origins =       ('BHM', 'DHN', 'HSV', 'MOB', 'MGM')
+        destinations =  ('DLG', 'FAI', 'GST', 'HOM', 'JNU')
+
+        planes = [Plane.query.filter_by(current_location=loc).first()
+                for loc in origins]
+
+        flights = [
+                Get.flight(
+                    plane=plane,
+                    origin=origin,
+                    destination=destination,
+                    flight_duration=random.randrange(100, 200), # the unit is in minutes
+                    )
+                for plane, origin, destination in zip(planes, origins, destinations)
+                ]
+        for f in flights:
+            db.session.add(f)
+        db.session.commit()
 
