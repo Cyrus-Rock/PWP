@@ -9,3 +9,4 @@ from population_utils import db
 
 db.create_all()
 Populate.plane(db)
+Populate.seat(db)
