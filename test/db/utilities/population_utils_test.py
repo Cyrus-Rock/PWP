@@ -6,6 +6,7 @@ from population_utils import Populate # refers to ../../db/utilities
 from planes import Plane # refers to ../../db
 from seats import Seat # refers to ../../db
 from flights import Flight # refers to ../../db
+from clients import Client # refers to ../../db
 
 
 def test_populate_plane(db_handle):
@@ -32,3 +33,10 @@ def test_populate_flight(db_handle):
     Populate.plane(db_handle)
     Populate.flight(db_handle)
     assert Flight.query.count() == 5
+
+def test_populate_client(db_handle):
+    '''
+    Tests that Populate.client creates 5 default values in db.
+    '''
+    Populate.client(db_handle)
+    assert Client.query.count() == 5
