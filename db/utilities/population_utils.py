@@ -87,6 +87,11 @@ class Get:
         return Order(offer=offer,
                 created_on=created_on)
 
+    @staticmethod
+    def reservation(order,
+            seat_number=random.randrange(1, 30)):
+        return Reservation(order=order, seat_number=seat_number)
+
 class Populate:
     @staticmethod
     def plane(db):
@@ -212,7 +217,20 @@ class Populate:
         db.session.commit()
 
         
+    @staticmethod
+    def reservation(db):
+        '''
+        Populates the reservation table in the database with 3 default values. It is assumed
+        that the plane, client, offer, order and flight tables have already been populated.
+        '''
+        orders = Order.query.all()
+        reservations = [
+                Get.reservation(o)
+                for o in orders
+                ]
 
-        
-
+        for o, r in zip(orders, reservations):
+            o.reservation = r
+            db.session.add(r)
+        db.session.commit()
 
