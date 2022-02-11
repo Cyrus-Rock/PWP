@@ -81,6 +81,11 @@ class Get:
                 flight=flight,
                 valid_until=valid_until)
 
+    @staticmethod
+    def order(offer,
+            created_on=datetime.datetime.now()):
+        return Order(offer=offer,
+                created_on=created_on)
 
 class Populate:
     @staticmethod
@@ -188,6 +193,25 @@ class Populate:
             db.session.add(o)
 
         db.session.commit()
+
+    @staticmethod
+    def order(db):
+        '''
+        Populates the order table in the database with 3 default values. It is assumed
+        that the plane, client, offer, and flight tables have already been populated.
+        '''
+        offers = [Offer.query.filter_by(id=id).first()
+                for id in range(1, 4)]
+
+        orders = [Get.order(o)
+                for o in offers]
+
+        for of, order in zip(offers, orders):
+            of.order = order
+            db.session.add(order)
+        db.session.commit()
+
+        
 
         
 
