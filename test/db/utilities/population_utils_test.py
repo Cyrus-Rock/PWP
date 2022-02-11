@@ -7,6 +7,7 @@ from planes import Plane # refers to ../../db
 from seats import Seat # refers to ../../db
 from flights import Flight # refers to ../../db
 from clients import Client # refers to ../../db
+from offers import Offer # refers to ../../db
 
 
 def test_populate_plane(db_handle):
@@ -40,3 +41,13 @@ def test_populate_client(db_handle):
     '''
     Populate.client(db_handle)
     assert Client.query.count() == 5
+
+def test_populate_offer(db_handle):
+    '''
+    Tests that Populate.offer creates 5 default values in db.
+    '''
+    Populate.plane(db_handle)
+    Populate.flight(db_handle)
+    Populate.client(db_handle)
+    Populate.offer(db_handle)
+    assert Offer.query.count() == 5
