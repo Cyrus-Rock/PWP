@@ -16,7 +16,7 @@ cd PWP
 You are now in the main directory of the project. Now, we need to run the tests and create and populate a default database for this project. The following subsections describe the steps required for these tasks.
 
 ### Testing Database's Design and Utility Functions
-In order to test that we have implemented the database according to the architecture that is presented in the wiki page, we have provided sophisticated tests that ensure the integrity of the design. These tests assure ACID principle in database's design.
+In order to test that we have implemented the database according to the architecture that is presented in the wiki page, we have provided sophisticated tests that ensure the integrity of the design. These tests assure ACID properties and compliance in database's design.
 
 We also have provided some utility functions that are required to create the database and populate it with default values. The provided tests make sure that these utility functions are intact and behave as the way that is explained in the documentation of each test.
 
@@ -66,7 +66,7 @@ That's all for creating and populating and testing the database.
 # Group information
 * Student 1. Alireza Bakhshi Zadi Mahmoodi (Alireza(dot)BakhshiZadiMahmoodi(at)student(dot)oulu(dot)fi)
 * Student 2. Valtteri Kuosmanen (vkuosman(at)student(dot)oulu(dot)fi)
-* Student 3. Name and email
+* Student 3. Ali Heikal (Ali(dot)Heikal(at)student(dot)oulu(dot)fi)
 * Student 4. Name and email 
 
 __Remember to include all required documentation and HOWTOs, including how to create and populate the database, how to run and test the API, the url to the entrypoint and instructions on how to setup and run the client__
