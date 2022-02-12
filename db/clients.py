@@ -12,6 +12,8 @@ class Client(db.Model):
     `created_on` is the timestamp for the creation time of the token.
 
     `name` reperesents the name of the client.
+    
+    `surname` represents family name of the client.
     '''
     id = db.Column(db.Integer, primary_key=True)
     created_on = db.Column(db.DateTime, nullable=False)
