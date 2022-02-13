@@ -21,11 +21,11 @@ In order to test that we have implemented the database according to the architec
 We also have provided some utility functions that are required to create the database and populate it with default values. The provided tests make sure that these utility functions are intact and behave as the way that is explained in the documentation of each test.
 
 In order to run the tests, we need to do the following:
-Remember that we are in the main directory of the project. Now issue the following command:
+Remember that we are in the main directory of the project. Now execute the following command:
 ```
 cd test/db
 ```
-Now, we are in the test directory for the database. Now, we want to run the tests. The next command shows us how:
+Now, we are in the test directory for the database. Now, we want to run the tests. The next command executes the test:
 ```
 python -m pytest
 ```
