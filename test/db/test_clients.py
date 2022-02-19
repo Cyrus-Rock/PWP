@@ -1,5 +1,5 @@
 from test_config import *
-from clients import * # refers to ../../db clients.py
+from db.clients import * # refers to ../../db clients.py
 
 
 def get_client():

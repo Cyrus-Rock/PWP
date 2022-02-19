@@ -4,16 +4,14 @@ Provides utilities to populate database with defalut values.
 
 import datetime
 import random
-import sys
-sys.path.append('../')
-from config import * # refers to ../ config.py
-from planes import Plane # refers to ../ planes.py
-from flights import Flight # refers to ../ flights.py
-from seats import Seat # refers to ../ seats.py
-from offers import Offer # refers to ../ offers.py
-from clients import Client # refers to ../ clients.py
-from orders import Order # refers to ../ orders.py
-from reservations import Reservation # refers to ../ reservations.py
+from db.config import * # refers to ../ config.py
+from db.planes import Plane # refers to ../ planes.py
+from db.flights import Flight # refers to ../ flights.py
+from db.seats import Seat # refers to ../ seats.py
+from db.offers import Offer # refers to ../ offers.py
+from db.clients import Client # refers to ../ clients.py
+from db.orders import Order # refers to ../ orders.py
+from db.reservations import Reservation # refers to ../ reservations.py
 
 
 class Get:

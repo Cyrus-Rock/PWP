@@ -1,15 +1,14 @@
 import sys
 sys.path.append('../')
 from test_config import * # referes to ../
-sys.path.append('../../db/utilities/')
-from population_utils import Populate # refers to ../../db/utilities
-from planes import Plane # refers to ../../db
-from seats import Seat # refers to ../../db
-from flights import Flight # refers to ../../db
-from clients import Client # refers to ../../db
-from offers import Offer # refers to ../../db
-from orders import Order # refers to ../../db
-from reservations import Reservation # refers to ../../db
+from db.utilities.population_utils import Populate # refers to ../../db/utilities
+from db.planes import Plane # refers to ../../db
+from db.seats import Seat # refers to ../../db
+from db.flights import Flight # refers to ../../db
+from db.clients import Client # refers to ../../db
+from db.offers import Offer # refers to ../../db
+from db.orders import Order # refers to ../../db
+from db.reservations import Reservation # refers to ../../db
 
 
 def test_populate_plane(db_handle):

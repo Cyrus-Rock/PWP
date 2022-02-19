@@ -1,7 +1,7 @@
 from test_config import *
 from test_clients import get_client
 from test_flights import get_flight
-from offers import * # refers to ../../db offers.py
+from db.offers import * # refers to ../../db offers.py
 
 
 def get_offer():

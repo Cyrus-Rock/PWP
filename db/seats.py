@@ -1,4 +1,4 @@
-from config import db
+from db.config import db
 
 # db is created by the importing module
 class Seat(db.Model):

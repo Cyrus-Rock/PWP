@@ -1,5 +1,5 @@
 from test_config import *
-from planes import * # refers to ../../db planes.py
+from db.planes import * # refers to ../../db planes.py
 
 
 

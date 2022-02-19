@@ -1,6 +1,6 @@
 from test_config import *
 from test_offers import get_offer
-from orders import * # refers to ../../db orders.py
+from db.orders import * # refers to ../../db orders.py
 
 
 def get_order():

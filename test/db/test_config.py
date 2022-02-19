@@ -1,14 +1,11 @@
 import pytest
 import os
 import tempfile
-import sys
 import flask
 import datetime
 import sqlalchemy
 import flask_sqlalchemy
-
-sys.path.append('../../db')
-from config import * # refers to ../../db config.py
+from db.config import * # refers to ../../db config.py
 
 
 
