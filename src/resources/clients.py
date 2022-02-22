@@ -12,6 +12,11 @@ class Client(flask_restful.Resource):
         }
         return result, 200
 
+    def delete(s, client):
+        db.config.db.session.delete(client)
+        db.config.db.session.commit()
+        return flask.Response(status=200)
+
 
 class ClientItem(flask_restful.Resource):
     def post(s):
