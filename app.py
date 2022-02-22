@@ -17,6 +17,7 @@ import src.resources.converters.client_converter
 app.url_map.converters['ClientConverter'] = src.resources.converters.client_converter.ClientConverter
 
 
-api.add_resource(src.resources.clients.Client, '/api/clients/<ClientConverter:client>/') # `client` is client's token
+api.add_resource(src.resources.clients.Client, '/api/clients/<ClientConverter:client>/') # `client` is client's token; handles GET
+api.add_resource(src.resources.clients.ClientItem, '/api/clients/') # handles POST
 
 
