@@ -36,7 +36,7 @@ class ClientItem(flask_restful.Resource):
             )
             db.config.db.session.add(client)
             db.config.db.session.commit()
-        except TypeError:
+        except (TypeError, KeyError):
             return "Incomplete request - missing fields", 400
         except sqlalchemy.exc.IntegrityError:
             return "This client already exists", 409

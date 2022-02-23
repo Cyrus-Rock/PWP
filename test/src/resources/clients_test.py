@@ -1,3 +1,4 @@
+from datetime import datetime
 import sys
 sys.path.append('../')
 import json
@@ -40,4 +41,31 @@ class TestClient:
         assert resp.status_code == 404
         resp = tclient.delete(s.RESOURCE_URI + 'junk/')
         assert resp.status_code == 404
+
+    def test_post(s, tclient):
+        '''
+        Tests the POST method for the client resource. Checks that a valid
+        request receives 201 response. Checks that duplicate call produces 409
+        response code. Also checks for missing fields and content type respnonse
+        codes.
+        '''
+        client = {
+            'token': 'token_test',
+            'name': 'name_test',
+            'surname': 'surname_test',
+            'create_on': datetime.now()
+        }
+        
+        resp = tclient.post(s.RESOURCE_URI, json=client)
+        assert resp.status_code == 201 # success
+
+        resp = tclient.post(s.RESOURCE_URI, json=client)
+        assert resp.status_code == 409 # already exists
+
+        resp = tclient.post(s.RESOURCE_URI, json={'token': 't'})
+        assert resp.status_code == 400 # missing fields
+
+        resp = tclient.post(s.RESOURCE_URI, data=client)
+        assert resp.status_code == 415 # content type must be json
+
 
