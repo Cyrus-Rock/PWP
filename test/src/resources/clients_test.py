@@ -14,7 +14,9 @@ class TestClient:
 
     def test_get(s, tclient):
         '''
-        Tests the GET method for the client resource.
+        Tests the GET method for the client resource by checking its response
+        code to be 200. It also checks the response could 404 where such a 
+        client doesn't exist.
         '''
         resp = tclient.get(s.RESOURCE_URI + 'token3/')
         assert resp.status_code == 200
@@ -27,6 +29,9 @@ class TestClient:
 
         d = json.loads(resp.data)
         assert d['name'] == 'name4' and d['surname'] == 'surename4'
+
+        resp = tclient.get(s.RESOURCE_URI + 'doesnt-exist/')
+        assert resp.status_code == 404 # not found
 
     def test_delete(s, tclient):
         '''
