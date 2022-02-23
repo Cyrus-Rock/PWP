@@ -27,3 +27,17 @@ class TestClient:
         d = json.loads(resp.data)
         assert d['name'] == 'name4' and d['surname'] == 'surename4'
 
+    def test_delete(s, tclient):
+        '''
+        Tests the DELETE method for the client resource. Checks that a valid
+        request reveives 200 response, and that trying to GET the sensor afterwards
+        results in 404.  Also checks that trying to delete a sensor that doesn't
+        exist results in 404.
+        '''
+        resp = tclient.delete(s.RESOURCE_URI + 'token0/')
+        assert resp.status_code == 200
+        resp = tclient.delete(s.RESOURCE_URI + 'token0/')
+        assert resp.status_code == 404
+        resp = tclient.delete(s.RESOURCE_URI + 'junk/')
+        assert resp.status_code == 404
+

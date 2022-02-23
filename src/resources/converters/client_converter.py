@@ -10,7 +10,7 @@ class ClientConverter(werkzeug.routing.BaseConverter):
         '''
         client = db.clients.Client.query.filter_by(token=client).first() 
         if not client:
-            raise NotFound
+            raise werkzeug.exceptions.NotFound
         return client
 
     def to_url(s, client):

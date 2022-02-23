@@ -8,11 +8,12 @@ from db.reservations import Reservation
 from db.config import * 
 import src.resources.clients
 import src.resources.converters.client_converter
+import src.resources.exception_handlers
 
 
 
 
-
+src.resources.exception_handlers.Handle.not_found(app)
 
 app.url_map.converters['ClientConverter'] = src.resources.converters.client_converter.ClientConverter
 
