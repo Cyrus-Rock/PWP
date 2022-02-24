@@ -8,6 +8,7 @@ from db.reservations import Reservation
 from db.config import * 
 import src.resources.clients
 import src.resources.planes
+import src.resources.flights
 import src.resources.seats
 import src.resources.converters.client_converter
 import src.resources.converters.plane_converter
@@ -35,3 +36,8 @@ api.add_resource(src.resources.planes.PlaneItem, '/api/planes/') # handles POST
 
 api.add_resource(src.resources.seats.Seat, '/api/seats/<SeatConverter:seats>/') # `seats` is plane's id; handles GET and DELETE
 api.add_resource(src.resources.seats.SeatItem, '/api/seats/') # handles POST
+
+
+
+api.add_resource(src.resources.flights.Flight, '/api/flights/<origin>/<destination>/') # handles GET
+api.add_resource(src.resources.flights.FlightCollection, '/api/flights/') # handles POST
