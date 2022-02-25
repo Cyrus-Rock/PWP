@@ -1,16 +1,12 @@
 from src.resources.config import *
+import json
 import db.clients
 
 
 class Client(flask_restful.Resource):
 
     def get(s, client):
-        result = {
-                'name': client.name,
-                'surname': client.surename,
-                'created_on': str(client.created_on)
-        }
-        return result, 200
+        return flask.Response(json.dumps(client.serialize()), 200, mimetype='json')
 
     def delete(s, client):
         db.config.db.session.delete(client)
@@ -25,15 +21,8 @@ class ClientItem(flask_restful.Resource):
         if flask.request.method != 'POST':
             return "POST method required", 405
         try:
-            token = flask.request.json['token']
-            name = flask.request.json['name']
-            surname = flask.request.json['surname']
-            client = db.clients.Client(
-                name=name,
-                surename=surname,
-                token=token,
-                created_on=datetime.datetime.now()
-            )
+            client = db.clients.Client()
+            client.deserialize(flask.request.json)
             db.config.db.session.add(client)
             db.config.db.session.commit()
         except (TypeError, KeyError):
