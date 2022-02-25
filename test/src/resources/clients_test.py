@@ -58,7 +58,7 @@ class TestClient:
             'token': 'token_test',
             'name': 'name_test',
             'surname': 'surname_test',
-            'create_on': datetime.now()
+            'created_on': datetime.now().isoformat()
         }
         
         resp = tclient.post(s.RESOURCE_URI, json=client)
