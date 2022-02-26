@@ -10,6 +10,7 @@ import src.resources.clients
 import src.resources.planes
 import src.resources.flights
 import src.resources.seats
+import src.resources.offers
 import src.resources.converters.client_converter
 import src.resources.converters.plane_converter
 import src.resources.converters.seat_converter
@@ -24,20 +25,33 @@ app.url_map.converters['ClientConverter'] = src.resources.converters.client_conv
 app.url_map.converters['PlaneConverter'] = src.resources.converters.plane_converter.PlaneConverter
 app.url_map.converters['SeatConverter'] = src.resources.converters.seat_converter.SeatConverter
 
+# `client` is client's token; handles GET and DELETE
+api.add_resource(src.resources.clients.Client,
+        '/api/clients/<ClientConverter:client>/') 
+api.add_resource(src.resources.clients.ClientItem,
+        '/api/clients/') # handles POST
 
-api.add_resource(src.resources.clients.Client, '/api/clients/<ClientConverter:client>/') # `client` is client's token; handles GET and DELETE
-api.add_resource(src.resources.clients.ClientItem, '/api/clients/') # handles POST
-
-
-api.add_resource(src.resources.planes.Plane, '/api/planes/<PlaneConverter:plane>/') # `plane` is plane's id; handles GET and DELETE
-api.add_resource(src.resources.planes.PlaneItem, '/api/planes/') # handles POST
-
-
-
-api.add_resource(src.resources.seats.Seat, '/api/seats/<SeatConverter:seats>/') # `seats` is plane's id; handles GET and DELETE
-api.add_resource(src.resources.seats.SeatItem, '/api/seats/') # handles POST
-
+# `plane` is plane's id; handles GET and DELETE
+api.add_resource(src.resources.planes.Plane,
+        '/api/planes/<PlaneConverter:plane>/')
+api.add_resource(src.resources.planes.PlaneItem,
+        '/api/planes/') # handles POST
 
 
-api.add_resource(src.resources.flights.Flight, '/api/flights/<origin>/<destination>/') # handles GET
-api.add_resource(src.resources.flights.FlightCollection, '/api/flights/') # handles POST
+# `seats` is plane's id; handles GET and DELETE
+api.add_resource(src.resources.seats.Seat,
+        '/api/seats/<SeatConverter:seats>/')
+api.add_resource(src.resources.seats.SeatItem,
+        '/api/seats/') # handles POST
+
+
+
+api.add_resource(src.resources.flights.Flight,
+        '/api/flights/<origin>/<destination>/') # handles GET
+api.add_resource(src.resources.flights.FlightCollection,
+        '/api/flights/') # handles POST
+
+
+# `client` is client's token; handles GET 
+api.add_resource(src.resources.offers.Offer,
+        '/api/offers/<ClientConverter:client>/<origin>/<destination>/') 
