@@ -1,4 +1,5 @@
 from datetime import datetime
+import werkzeug.exceptions
 import sys
 sys.path.append('../')
 import json
@@ -15,7 +16,7 @@ class TestPlane:
     def test_get(s, tclient):
         '''
         Tests the GET method for the plane resource by checking its response
-        code to be 200. It also checks the response could 404 where such a 
+        code to be 200. It also checks the response code 404 where such a 
         plane doesn't exist.
         '''
         id = 1
@@ -24,14 +25,14 @@ class TestPlane:
 
         d = json.loads(resp.data)
         # check to see if we received right data
-        assert d['plane'] == 'plane0' and d['current_location'] == 'BHM'
+        assert d['name'] == 'plane0' and d['current_location'] == 'BHM'
 
         resp = tclient.get(s.RESOURCE_URI + f'{id+2}/')
         assert resp.status_code == 200
 
         d = json.loads(resp.data)
         # check to see if we received right data
-        assert d['plane'] == 'plane2' and d['current_location'] == 'HSV'
+        assert d['name'] == 'plane2' and d['current_location'] == 'HSV'
 
         resp = tclient.get(s.RESOURCE_URI + 'doesnt-exist/')
         assert resp.status_code == 404 # not found
@@ -73,6 +74,6 @@ class TestPlane:
         assert resp.status_code == 415 # content type must be json
 
         resp = tclient.post(s.RESOURCE_URI, json=plane|{'updated_on': 0})
-        assert resp.status_code == 401 # invalid type
+        assert resp.status_code == werkzeug.exceptions.BadRequest.code
 
 
