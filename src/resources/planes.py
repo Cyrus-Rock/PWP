@@ -1,16 +1,13 @@
 from src.resources.config import *
 import db.planes
+import json
 
 
 class Plane(flask_restful.Resource):
 
     def get(s, plane):
-        result = {
-                'plane': plane.name,
-                'current_location': plane.current_location,
-                'updated_on': str(plane.updated_on)
-        }
-        return result, 200
+        result = json.dumps(plane.serialize())
+        return flask.Response(result, 200, mimetype='json')
 
     def delete(s, plane):
         db.config.db.session.delete(plane)
@@ -25,14 +22,8 @@ class PlaneItem(flask_restful.Resource):
         if flask.request.method != 'POST':
             return "POST method required", 405
         try:
-            name = flask.request.json['name']
-            current_location = flask.request.json['current_location']
-            updated_on = datetime.datetime.fromisoformat(flask.request.json['updated_on'])
-            
-            plane = db.planes.Plane(
-                name=name,
-                current_location=current_location,
-                updated_on=updated_on)
+            plane = db.planes.Plane()
+            plane.deserialize(flask.request.json)
             db.config.db.session.add(plane)
             db.config.db.session.commit()
         except KeyError:

@@ -1,4 +1,8 @@
 from db.config import db
+import jsonschema
+import werkzeug.exceptions
+from datetime import datetime
+
 
 # db is created by the importing module
 class Plane(db.Model):
@@ -21,3 +25,50 @@ class Plane(db.Model):
 
     flight = db.relationship('Flight', back_populates='plane', uselist=False)
     seats = db.relationship('Seat', back_populates='plane', uselist=True)
+
+
+    def serialize(s):
+        result = {
+                'name': s.name,
+                'current_location': s.current_location,
+                'updated_on': s.updated_on.isoformat()
+        }
+        return result
+
+    def deserialize(s, json):
+        try:
+            jsonschema.validate(json,
+                s.json_schema(),
+                format_checker=jsonschema.draft7_format_checker)
+        except jsonschema.ValidationError as e:
+            raise werkzeug.exceptions.BadRequest(description=str(e))
+
+        s.name = json['name']
+        s.current_location = json['current_location']
+        s.updated_on = datetime.fromisoformat(json['updated_on'])
+
+    @staticmethod
+    def json_schema():
+        schema = {
+                "type": 'object',
+                'required': ['name', 'current_location', 'updated_on'],
+                'properties': {
+                    'updated_on': {
+                        'description': 'Determines the time stamp for update of the info.',
+                        'type': 'string',
+                        'format': 'date-time'
+                    }, # updated_on
+                    'name': {
+                        'description': 'Determines the name of the plane.',
+                        'type': 'string'
+                    }, # name
+                    'current_location': {
+                        'description': 'Determines the current location of the plane.',
+                        'type': 'string'
+                    } # current_location
+                } # properties
+        } # schema
+        return schema
+
+
+
