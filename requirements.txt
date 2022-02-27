@@ -1,0 +1,9 @@
+flask
+flask-caching
+flask-restful
+flask-sqlalchemy
+jsonschema
+pytest
+pytest-coverage
+flasgger
+pyyaml
