@@ -19,14 +19,14 @@ We mainly talked about the tasks that were related to deadline 01. Some of the t
 *ONLY USED BY COURSE STAFF: Additional comments from the course staff*
 
 ## Meeting 2.
-* **DATE:**
-* **ASSISTANTS:**
+* **DATE:15/02/2022**
+* **ASSISTANTS: Mika Oja**
 
-### Minutes
-*Summary of what was discussed during the meeting*
+### Minutes: 15 mins
+Everything was checked by the instructor and we received the full mark for every evaluation regarding DL2.
 
 ### Action points
-*List here the actions points discussed with assistants*
+Since everything was implemented fully, no further actions was required.
 
 
 ### Comments from staff
