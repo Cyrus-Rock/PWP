@@ -1,6 +1,6 @@
 from test_config import *
 from test_planes import get_plane
-from db.flights import * # refers to ../../db flights.py
+from db.flights import * 
 
 
 def get_flight():

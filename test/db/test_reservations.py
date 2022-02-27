@@ -1,6 +1,6 @@
 from test_config import *
 from test_orders import get_order
-from db.reservations import * # refers to ../../db reservations.py
+from db.reservations import * 
 
 
 def get_reservation():

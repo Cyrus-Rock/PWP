@@ -3,6 +3,8 @@ import os
 import sqlalchemy
 import sqlalchemy.engine
 import tempfile
+import sys
+sys.path.append('../../')
 import db.config
 import db.utilities.population_utils
 import app

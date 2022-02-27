@@ -1,9 +1,9 @@
 from datetime import datetime
 import werkzeug.exceptions
 import sys
-sys.path.append('../')
+sys.path.append('./src')
 import json
-from config import tclient # refers to ../
+from config import tclient # refers to ./src
 
 
 class TestPlane:

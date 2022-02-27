@@ -1,5 +1,6 @@
 from test_config import *
-from db.clients import * # refers to ../../db clients.py
+from db.clients import * 
+import datetime
 
 
 def get_client():

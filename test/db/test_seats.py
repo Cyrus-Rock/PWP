@@ -1,6 +1,6 @@
 from test_config import *
 from test_planes import get_plane
-from db.seats import * # refers to ../../db seats.py
+from db.seats import * 
 
 
 def get_seat():

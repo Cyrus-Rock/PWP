@@ -1,8 +1,8 @@
 from datetime import datetime
-import sys
-sys.path.append('../')
 import json
-from config import tclient # refers to ../
+import sys
+sys.path.append('./src/')
+from config import tclient # refers to ./src/
 
 
 class TestSeat:

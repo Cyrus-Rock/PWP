@@ -5,7 +5,7 @@ import flask
 import datetime
 import sqlalchemy
 import flask_sqlalchemy
-from db.config import * # refers to ../../db config.py
+from db.config import * 
 
 
 
