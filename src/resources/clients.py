@@ -1,4 +1,7 @@
-from src.resources.config import *
+import flask_restful
+import flask
+import sqlalchemy.exc
+import db.config
 import json
 import db.clients
 
@@ -15,6 +18,13 @@ class Client(flask_restful.Resource):
 
 
 class ClientItem(flask_restful.Resource):
+    def get(s):
+        clients = db.clients.Client.query.all()
+        return flask.Response(json.dumps([c.serialize() for c in clients]),
+            200,
+            mimetype='json')
+
+
     def post(s):
         if flask.request.content_type != 'application/json':
             return "Request content type must be JSON", 415

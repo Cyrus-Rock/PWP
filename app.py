@@ -41,7 +41,8 @@ app.url_map.converters['SeatConverter'] = src.resources.converters.seat_converte
 api.add_resource(src.resources.clients.Client,
         '/api/clients/<ClientConverter:client>/') 
 api.add_resource(src.resources.clients.ClientItem,
-        '/api/clients/') # handles POST
+        '/api/clients/') # handles POST and
+                        # GET for all clients
 
 # `plane` is plane's id; handles GET and DELETE
 api.add_resource(src.resources.planes.Plane,
