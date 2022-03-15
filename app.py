@@ -15,7 +15,19 @@ import src.resources.converters.client_converter
 import src.resources.converters.plane_converter
 import src.resources.converters.seat_converter
 import src.resources.exception_handlers
+import src.utilities.mason_builder
+import json
 
+
+@app.route('/api/')
+def entry_point():
+    body = src.utilities.mason_builder.MasonBuilder()
+    body.add_control('seat-all', api.url_for(src.resources.seats.SeatItem))
+    body.add_control('plane-all', api.url_for(src.resources.planes.PlaneItem))
+    body.add_control('flight-all', api.url_for(src.resources.flights.FlightCollection))
+    body.add_control('client-all', api.url_for(src.resources.clients.ClientItem))
+    #body.add_control('offer-all', api.url_for(src.resources.offers.OfferCollection)) # if we have implmented the OfferCollection
+    return flask.Response(json.dumps(body), 200, mimetype=src.utilities.mason_builder.MASON_TYPE)
 
 
 
