@@ -12,6 +12,18 @@ class TestClient:
 
     RESOURCE_URI = '/api/clients/'
 
+
+    def test_get_for_all_clients(s, tclient):
+        '''
+        This is to test the GET method for all clients for `/api/clients/`.
+        '''
+        resp = tclient.get(s.RESOURCE_URI)
+        assert resp.status_code == 200
+        d = json.loads(resp.data)
+        default_prepopulated_clients_num = 5
+        assert len(d) == default_prepopulated_clients_num
+
+
     def test_get(s, tclient):
         '''
         Tests the GET method for the client resource by checking its response
