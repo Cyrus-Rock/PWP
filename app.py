@@ -64,7 +64,8 @@ api.add_resource(src.resources.seats.SeatItem,
 api.add_resource(src.resources.flights.Flight,
         '/api/flights/<origin>/<destination>/') # handles GET
 api.add_resource(src.resources.flights.FlightCollection,
-        '/api/flights/') # handles POST
+        '/api/flights/') # handles POST and
+                         #  GET method for all flights
 
 
 # `client` is client's token; handles GET 

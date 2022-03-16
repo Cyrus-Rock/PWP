@@ -1,4 +1,9 @@
-from src.resources.config import *
+import flask_restful
+import flask
+import datetime
+import sqlalchemy.exc
+import db.config
+import db.flights
 import src.resources.converters.flight_converter
 
 
@@ -20,6 +25,26 @@ class Flight(flask_restful.Resource):
         return result, 200
 
 class FlightCollection(flask_restful.Resource):
+    def get(s):
+        '''
+        This is the get method to return all the flights in the database. It 
+        serves hypermedia control `flight-all`.
+        '''
+        flights = db.flights.Flight.query.all()
+        result = [
+            {
+                'flight_id': f.id,
+                'flight_datetime': str(f.flight_datetime),
+                'plane_id': f.plane.id,
+                'flight_duration': f.flight_duration,
+                'origin': f.origin,
+                'destination': f.destination,
+                'updated_on': str(f.updated_on),
+                'full': f.full
+            } for f in flights
+        ]
+        return result, 200
+
     def post(s):
         if flask.request.content_type != 'application/json':
             return "Request content type must be JSON", 415
