@@ -19,5 +19,9 @@ class TestRoutes:
         total_number_of_entry_points = 4
         assert len(d['@controls']) == total_number_of_entry_points
 
-        for k in 'seat-all:plane-all:flight-all:client-all'.split(':'):
+        controls = 'seat-all:plane-all:flight-all:client-all'.split(':')
+        name_space = 'alden'
+        controls = tuple(map(lambda c: name_space + ':' + c, controls))
+
+        for k in controls:
             assert k in d['@controls']

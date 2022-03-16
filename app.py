@@ -24,23 +24,36 @@ import src.resources.converters.seat_converter
 import src.resources.exception_handlers
 import src.utilities.mason_builder
 import json
+import src.utilities.masonifier
 
 
 
 
 @app.route(db.config.LINK_RELATIONS_URL)
 def send_link_relations_html():
+        '''
+        Sends the link relations' webpage to the provided URL.
+        '''
         return flask.send_from_directory(app.static_folder, 'link-relations.html')
 
 @app.route('/api/')
 def entry_point():
-    body = src.utilities.mason_builder.MasonBuilder()
-    body.add_control('seat-all', api.url_for(src.resources.seats.SeatItem))
-    body.add_control('plane-all', api.url_for(src.resources.planes.PlaneItem))
-    body.add_control('flight-all', api.url_for(src.resources.flights.FlightCollection))
-    body.add_control('client-all', api.url_for(src.resources.clients.ClientItem))
-    #body.add_control('offer-all', api.url_for(src.resources.offers.OfferCollection)) # if we have implmented the OfferCollection
-    return flask.Response(json.dumps(body), 200, mimetype=src.utilities.mason_builder.MASON_TYPE)
+        """
+        Provides the necessary entry points for the /api/ route.
+        """
+        body = src.utilities.mason_builder.MasonBuilder()
+        ns = src.utilities.masonifier.Masonify.NAME_SPACE # name space
+
+        body.add_namespace(ns=ns, uri=db.config.LINK_RELATIONS_URL)
+
+        ns += ':'
+
+        body.add_control(ns + 'seat-all', api.url_for(src.resources.seats.SeatItem))
+        body.add_control(ns + 'plane-all', api.url_for(src.resources.planes.PlaneItem))
+        body.add_control(ns + 'flight-all', api.url_for(src.resources.flights.FlightCollection))
+        body.add_control(ns + 'client-all', api.url_for(src.resources.clients.ClientItem))
+        #body.add_control('offer-all', api.url_for(src.resources.offers.OfferCollection)) # if we have implmented the OfferCollection
+        return flask.Response(json.dumps(body), 200, mimetype=src.utilities.mason_builder.MASON_TYPE)
 
 
 
