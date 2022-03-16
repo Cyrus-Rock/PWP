@@ -42,6 +42,55 @@ class Masonify:
 
     NAME_SPACE = 'alden'
 
+
+    @staticmethod
+    def flight_collection(flights):
+        '''
+        This builds the response body and the required hypermedia for the
+        FlightCollection resource.
+        '''
+        masonified_flights = []
+        for f in flights:
+            masonified = src.utilities.mason_builder.MasonBuilder(
+                {
+                    'flight_id': f.id,
+                    'flight_datetime': str(f.flight_datetime),
+                    'plane_id': f.plane.id,
+                    'flight_duration': f.flight_duration,
+                    'origin': f.origin,
+                    'destination': f.destination,
+                    'updated_on': str(f.updated_on),
+                    'full': f.full
+                } 
+            ).add_control(
+                ctrl_name='self',
+                href=db.config.api.url_for(
+                    src.resources.flights.Flight,
+                    origin=f.origin,
+                    destination=f.destination
+                )
+            )
+
+            masonified_flights.append(masonified)
+
+        masonified = src.utilities.mason_builder.MasonBuilder(
+            {'flights_list': masonified_flights}
+        ).add_control_post(
+            ctrl_name=Masonify.NAME_SPACE + ':add-flights',
+            href=db.config.api.url_for(
+                src.resources.flights.FlightCollection
+            )
+        )
+
+        __add_entry_points_and_name_space__(
+            masonified=masonified,
+            _except='flight-all'
+        )
+        return masonified
+
+
+
+
     @staticmethod
     def seat(seats):
         '''

@@ -1,10 +1,13 @@
 import flask_restful
+import json
 import flask
 import datetime
 import sqlalchemy.exc
 import db.config
 import db.flights
 import src.resources.converters.flight_converter
+import src.utilities.masonifier
+import src.utilities.mason_builder
 
 
 class Flight(flask_restful.Resource):
@@ -36,21 +39,17 @@ class FlightCollection(flask_restful.Resource):
         serves hypermedia control `flight-all`.
         '''
         flights = db.flights.Flight.query.all()
-        result = [
-            {
-                'flight_id': f.id,
-                'flight_datetime': str(f.flight_datetime),
-                'plane_id': f.plane.id,
-                'flight_duration': f.flight_duration,
-                'origin': f.origin,
-                'destination': f.destination,
-                'updated_on': str(f.updated_on),
-                'full': f.full
-            } for f in flights
-        ]
-        return result, 200
+        result = src.utilities.masonifier.Masonify.flight_collection(flights)
+        return flask.Response(
+            json.dumps(result),
+            status=200,
+            mimetype=src.utilities.mason_builder.MASON_TYPE
+        )
 
     def post(s):
+        '''
+        This is the POST method that creates new planes in the database.
+        '''
         if flask.request.content_type != 'application/json':
             return "Request content type must be JSON", 415
         if flask.request.method != 'POST':

@@ -21,7 +21,11 @@ class TestFlight:
 
         d = json.loads(resp.data)
         preloaded_data_num = 5
-        assert len(d) == preloaded_data_num
+        assert len(d['flights_list']) == preloaded_data_num
+
+        # check for hypermedia
+        assert '@controls' in d
+        assert '@namespaces' in d
 
     def test_get(s, tclient):
         '''

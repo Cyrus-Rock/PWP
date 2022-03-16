@@ -26,6 +26,10 @@ class Plane(flask_restful.Resource):
         )
 
     def delete(s, plane):
+        '''
+        This is the DELETE method that removes the plane of interest based on
+        its id.
+        '''
         db.config.db.session.delete(plane)
         db.config.db.session.commit()
         return flask.Response(status=200)
@@ -50,6 +54,9 @@ class PlaneItem(flask_restful.Resource):
 
 
     def post(s):
+        '''
+        This is the POST method that creates new plane in the database.
+        '''
         if flask.request.content_type != 'application/json':
             return "Request content type must be JSON", 415
         if flask.request.method != 'POST':
