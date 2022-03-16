@@ -161,6 +161,11 @@ class Masonify:
 
         masonified = src.utilities.mason_builder.MasonBuilder(
             {'clients_list': masonified_clients}
+        ).add_control_post(
+            ctrl_name=Masonify.NAME_SPACE + ':add-client',
+            href=db.config.api.url_for(
+                src.resources.clients.ClientItem
+            )
         )
 
         __add_entry_points_and_name_space__(
