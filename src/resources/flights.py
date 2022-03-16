@@ -19,18 +19,13 @@ class Flight(flask_restful.Resource):
         '''
         flights = src.resources.converters.flight_converter.converter(
                     origin, destination)
-        result = [{
-                'flight_id': f.id,
-                'flight_datetime': str(f.flight_datetime),
-                'plane_id': f.plane.id,
-                'flight_duration': f.flight_duration,
-                'origin': f.origin,
-                'destination': f.destination,
-                'updated_on': str(f.updated_on),
-                'full': f.full
-            } for f in flights
-        ]
-        return result, 200
+
+        result = src.utilities.masonifier.Masonify.flight(flights)
+        return flask.Response(
+            json.dumps(result),
+            status=200,
+            mimetype=src.utilities.mason_builder.MASON_TYPE
+        )
 
 class FlightCollection(flask_restful.Resource):
     def get(s):

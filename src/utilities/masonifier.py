@@ -88,6 +88,39 @@ class Masonify:
         )
         return masonified
 
+    @staticmethod
+    def flight(flights):
+        '''
+        This builds the response body and the hypermedia required for the 
+        Flight resource.
+        '''
+        masonified = src.utilities.mason_builder.MasonBuilder(
+            {
+                'flights_list':[
+                    {
+                        'flight_id': f.id,
+                        'flight_datetime': str(f.flight_datetime),
+                        'plane_id': f.plane.id,
+                        'flight_duration': f.flight_duration,
+                        'origin': f.origin,
+                        'destination': f.destination,
+                        'updated_on': str(f.updated_on),
+                        'full': f.full
+                    } for f in flights
+                ]
+            }
+        ).add_control(
+                ctrl_name='up',
+                href=db.config.api.url_for(
+                    src.resources.flights.FlightCollection
+            )
+        )
+
+        __add_entry_points_and_name_space__(
+            masonified=masonified,
+            _except='flight-all'
+        )
+        return masonified
 
 
 

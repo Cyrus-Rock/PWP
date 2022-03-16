@@ -40,9 +40,13 @@ class TestFlight:
         assert resp.status_code == 200
 
         d = json.loads(resp.data)
-        assert isinstance(d, list)
+        assert isinstance(d['flights_list'], list)
 
-        flight = d[0]
+        # check for hypermedia
+        assert '@controls' in d
+        assert '@namespaces' in d
+
+        flight = d['flights_list'][0]
         # check to see if we received right data
         assert flight['origin'] == origin and flight['destination'] == destination
 
