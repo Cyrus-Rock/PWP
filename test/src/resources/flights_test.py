@@ -12,6 +12,17 @@ class TestFlight:
 
     RESOURCE_URI = '/api/flights/'
 
+    def test_get_for_all_flights(s, tclient):
+        '''
+        This is to test GET method for hypermedia control `flight-all`.
+        '''
+        resp = tclient.get(s.RESOURCE_URI)
+        assert resp.status_code == 200
+
+        d = json.loads(resp.data)
+        preloaded_data_num = 5
+        assert len(d) == preloaded_data_num
+
     def test_get(s, tclient):
         '''
         Tests the GET method for the flight resource by checking its response
