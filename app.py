@@ -56,7 +56,8 @@ api.add_resource(src.resources.planes.PlaneItem,
 api.add_resource(src.resources.seats.Seat,
         '/api/seats/<SeatConverter:seats>/')
 api.add_resource(src.resources.seats.SeatItem,
-        '/api/seats/') # handles POST
+        '/api/seats/') # handles POST and
+                       # GET method for all seats
 
 
 

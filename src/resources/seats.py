@@ -20,6 +20,25 @@ class Seat(flask_restful.Resource):
 
 
 class SeatItem(flask_restful.Resource):
+
+    def get(s):
+        '''
+        This is the GET method to return all the seats in the database. It
+        serves hypermedia control `seat-all`.
+        '''
+        seats = db.seats.Seat.query.all()
+        result = [
+            {
+                'id': s.id,
+                'type': s.type,
+                'capacity': s.capacity,
+                'plane_id': s.plane_id
+            } for s in seats
+        ]
+        return result, 200
+
+
+
     def post(s):
         if flask.request.content_type != 'application/json':
             return "Request content type must be JSON", 415
