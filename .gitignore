@@ -1,2 +1,8 @@
 *__pycache__
 *swp
+.venv/
+.vscode/
+db/db.db
+programmable_web_project.egg-info/
+src/db.db
+*.coverage
