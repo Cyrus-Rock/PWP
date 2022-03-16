@@ -9,8 +9,13 @@ import src.resources.converters.flight_converter
 
 class Flight(flask_restful.Resource):
 
-    @src.resources.converters.flight_converter.converter
-    def get(s, flights):
+    def get(s, origin, destination):
+        '''
+        This is the GET method that returns the list of flights that match the 
+        origin and destination criteria.
+        '''
+        flights = src.resources.converters.flight_converter.converter(
+                    origin, destination)
         result = [{
                 'flight_id': f.id,
                 'flight_datetime': str(f.flight_datetime),

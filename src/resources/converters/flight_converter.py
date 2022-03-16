@@ -1,16 +1,16 @@
 import werkzeug.exceptions
 import db.flights
 
-def converter(func):
+def converter(origin, destination):
     '''
-    This is to be used as a conveter for each method.
+    This is a utility function that returns matched flights based on the origin
+    and destionation as a Python object.
     '''
-    def wrapper(self, origin, destination):
-        flights = db.flights.Flight.query.filter_by(
-            origin=origin,
-            destination=destination
-        ).all()
-        if not flights:
-            raise werkzeug.exceptions.NotFound
-        return func(self, flights)
-    return wrapper
+    flights = db.flights.Flight.query.filter_by(
+        origin=origin,
+        destination=destination
+    ).all()
+    if not flights:
+        raise werkzeug.exceptions.NotFound
+    return flights
+
