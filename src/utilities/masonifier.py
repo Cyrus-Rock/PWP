@@ -43,6 +43,9 @@ class Masonify:
     NAME_SPACE = 'alden'
 
 
+
+
+
     @staticmethod
     def flight_collection(flights):
         '''
@@ -260,6 +263,32 @@ class Masonify:
         )
         return masonified
 
+    @staticmethod
+    def offer(offers):
+        '''
+        This builds the response body and the hypermedia required for the 
+        Offer resource.
+        '''
+        masonified = src.utilities.mason_builder.MasonBuilder(
+            {
+                'offer_list':[
+                    {
+                        'flight_id': o.flight.id,
+                        'valid_until': o.valid_until.isoformat(),
+                        'client_id': o.client.id,
+                    } for o in offers
+               ]
+            }
+        ).add_control(
+                ctrl_name='up',
+                href='link to the not-implemented OfferCollection resource'
+        )
+
+        __add_entry_points_and_name_space__(
+            masonified=masonified,
+            _except=''
+        )
+        return masonified
 
 
 

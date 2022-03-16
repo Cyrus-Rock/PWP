@@ -1,15 +1,28 @@
-from src.resources.config import *
+import flask_restful
+import json
+import flask
+import datetime
+import sqlalchemy.exc
+import db.config
+import src.utilities.mason_builder
 import src.resources.converters.offer_converter
 
 
 class Offer(flask_restful.Resource):
 
-    @src.resources.converters.offer_converter.converter
-    def get(s, offers):
-        result = [{
-                'flight_id': o.flight.id,
-                'valid_until': o.valid_until.isoformat(),
-                'client_id': o.client.id,
-            } for o in offers
-        ]
-        return result, 200
+    def get(s, client, origin, destination):
+        '''
+        This is the GET method that returns proper offers according to the
+        `client`, `destination`, and `criteria`.
+        '''
+        offers = src.resources.converters.offer_converter.converter(
+            client, origin, destination
+        )
+
+        result = [        ]
+        result = src.utilities.masonifier.Masonify.offer(offers)
+        return flask.Response(
+            json.dumps(result),
+            status=200,
+            mimetype=src.utilities.mason_builder.MASON_TYPE
+        )

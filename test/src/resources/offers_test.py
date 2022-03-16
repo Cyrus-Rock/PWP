@@ -26,9 +26,13 @@ class TestOffer:
         assert resp.status_code == 200
 
         d = json.loads(resp.data)
-        assert isinstance(d, list)
+        assert isinstance(d['offer_list'], list)
 
-        offer = d[0]
+        offer = d['offer_list'][0]
         # check to see if we received right data
         for key in ('flight_id', 'client_id', 'valid_until'):
             assert key in offer 
+
+        # check for hypermedia
+        assert '@controls' in d
+        assert '@namespaces' in d
