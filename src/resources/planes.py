@@ -16,6 +16,19 @@ class Plane(flask_restful.Resource):
 
 
 class PlaneItem(flask_restful.Resource):
+
+    def get(s):
+        '''
+        This is the GET method to return all the planes in the database. It's
+        hypermedia control is `plane-all`.
+        '''
+        planes = db.planes.Plane.query.all()
+        return flask.Response(json.dumps([p.serialize() for p in planes]),
+            200,
+            mimetype='json')
+
+
+
     def post(s):
         if flask.request.content_type != 'application/json':
             return "Request content type must be JSON", 415

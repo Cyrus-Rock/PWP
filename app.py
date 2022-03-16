@@ -48,7 +48,8 @@ api.add_resource(src.resources.clients.ClientItem,
 api.add_resource(src.resources.planes.Plane,
         '/api/planes/<PlaneConverter:plane>/')
 api.add_resource(src.resources.planes.PlaneItem,
-        '/api/planes/') # handles POST
+        '/api/planes/') # handles POST and
+                        # GET method for all planes
 
 
 # `seats` is plane's id; handles GET and DELETE
