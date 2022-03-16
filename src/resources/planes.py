@@ -1,13 +1,29 @@
-from src.resources.config import *
+import flask_restful
+import flask
+import datetime
+import sqlalchemy.exc
+import db.config
 import db.planes
 import json
-
+import src.utilities.masonifier
+import src.utilities.mason_builder
 
 class Plane(flask_restful.Resource):
 
     def get(s, plane):
-        result = json.dumps(plane.serialize())
-        return flask.Response(result, 200, mimetype='json')
+        '''
+        This is the GET method that returns the plane based on its id.
+        '''
+        result = plane.serialize()
+        result.update(
+            src.utilities.masonifier.Masonify.plane(plane)
+        )
+
+        return flask.Response(
+            json.dumps(result),
+            200,
+            mimetype=src.utilities.mason_builder.MASON_TYPE
+        )
 
     def delete(s, plane):
         db.config.db.session.delete(plane)

@@ -47,6 +47,11 @@ class TestPlane:
         # check to see if we received right data
         assert d['name'] == 'plane2' and d['current_location'] == 'HSV'
 
+
+        # check for hypermedia
+        assert '@controls' in d
+        assert '@namespaces' in d
+
         resp = tclient.get(s.RESOURCE_URI + 'doesnt-exist/')
         assert resp.status_code == 404 # not found
 
