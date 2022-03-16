@@ -51,15 +51,20 @@ class SeatItem(flask_restful.Resource):
         serves hypermedia control `seat-all`.
         '''
         seats = db.seats.Seat.query.all()
-        result = [
-            {
-                'id': s.id,
-                'type': s.type,
-                'capacity': s.capacity,
-                'plane_id': s.plane_id
-            } for s in seats
+        plane_ids = set(s.plane.id for s in seats)
+        seats_grouped = [
+            db.seats.Seat.query.filter_by(plane_id=id).all()
+            for id in plane_ids
         ]
-        return result, 200
+
+        result = src.utilities.masonifier.Masonify.seat_item(seats_grouped)
+        return flask.Response(
+            json.dumps(result),
+            200,
+            mimetype=src.utilities.mason_builder.MASON_TYPE
+        )
+
+
 
 
 

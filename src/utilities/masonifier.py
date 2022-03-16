@@ -73,6 +73,46 @@ class Masonify:
         )
         return masonified
 
+    @staticmethod
+    def seat_item(seats):
+        '''
+        This builds the response body and the required hypermedia for the
+        SeatItem resource.
+        '''
+        masonified_seats = []
+        for ss in seats:
+            masonified = src.utilities.mason_builder.MasonBuilder(
+                {
+                    'plane_name': ss[0].plane.name,
+                    'capacity': {s.type:s.capacity for s in ss},
+                    'updated_on': str(ss[0].plane.updated_on),
+                    'plane_id': ss[0].plane.id
+                }
+            ).add_control(
+                ctrl_name='self',
+                href=db.config.api.url_for(
+                    src.resources.seats.Seat,
+                    seats=ss
+                )
+            )
+
+            masonified_seats.append(masonified)
+
+        masonified = src.utilities.mason_builder.MasonBuilder(
+            {'seats_list': masonified_seats}
+        ).add_control_post(
+            ctrl_name=Masonify.NAME_SPACE + ':add-seat',
+            href=db.config.api.url_for(
+                src.resources.seats.SeatItem
+            )
+        )
+
+        __add_entry_points_and_name_space__(
+            masonified=masonified,
+            _except='seat-all'
+        )
+        return masonified
+
 
 
     @staticmethod

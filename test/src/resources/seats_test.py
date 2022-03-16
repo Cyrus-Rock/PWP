@@ -21,8 +21,12 @@ class TestSeat:
         assert resp.status_code == 200
 
         d = json.loads(resp.data)
-        number_of_preloaded_data = 30
-        assert len(d) == number_of_preloaded_data
+        number_of_preloaded_data = 15
+        assert len(d['seats_list']) == number_of_preloaded_data
+
+        # check for hypermedia
+        assert '@controls' in d
+        assert '@namespaces' in d
 
 
 #    def test_get(s, tclient):
