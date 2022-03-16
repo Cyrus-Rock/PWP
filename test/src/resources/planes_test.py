@@ -13,6 +13,19 @@ class TestPlane:
 
     RESOURCE_URI = '/api/planes/'
 
+
+    def test_get_for_all_planes(s, tclient):
+        '''
+        This is to test the GET method for all planes for `/api/planes/`.
+        '''
+        resp = tclient.get(s.RESOURCE_URI)
+        assert resp.status_code == 200
+        d = json.loads(resp.data)
+        default_prepopulated_planes_num = 15
+        assert len(d) == default_prepopulated_planes_num
+
+
+
     def test_get(s, tclient):
         '''
         Tests the GET method for the plane resource by checking its response
