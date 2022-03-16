@@ -12,6 +12,19 @@ class TestSeat:
 
     RESOURCE_URI = '/api/seats/'
 
+    def test_get_all_seats(s, tclient):
+        '''
+        This is to test that GET method returns all the seats in the database for
+        hypermedia control `seat-all`.
+        '''
+        resp = tclient.get(s.RESOURCE_URI)
+        assert resp.status_code == 200
+
+        d = json.loads(resp.data)
+        number_of_preloaded_data = 30
+        assert len(d) == number_of_preloaded_data
+
+
     def test_get(s, tclient):
         '''
         Tests the GET method for the seat resource by checking its response
