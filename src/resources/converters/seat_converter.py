@@ -14,5 +14,4 @@ class SeatConverter(werkzeug.routing.BaseConverter):
         return seats
 
     def to_url(s, seats):
-        #return str(seats[0].plane.id)
-        return str(seats)
+        return str(seats[0].plane.id)

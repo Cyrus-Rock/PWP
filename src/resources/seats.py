@@ -1,18 +1,42 @@
-from src.resources.config import *
+import flask_restful
+import json
+import flask
+import datetime
+import sqlalchemy.exc
+import db.config
 import db.seats
+import src.utilities.masonifier
+import src.utilities.mason_builder
 
 
 class Seat(flask_restful.Resource):
 
     def get(s, seats):
+        '''
+        This is the GET method that returns the seats that are associated with
+        the plane's id.
+        '''
         result = {
                 'plane_name': seats[0].plane.name,
                 'capacity': {s.type:s.capacity for s in seats},
                 'updated_on': str(seats[0].plane.updated_on)
         }
-        return result, 200
+
+        result.update(
+            src.utilities.masonifier.Masonify.seat(seats)
+        )
+
+        return flask.Response(
+            json.dumps(result),
+            status=200,
+            mimetype=src.utilities.mason_builder.MASON_TYPE
+        )
 
     def delete(s, seats):
+        '''
+        This is the DELETE method that removes the seats for plane
+        of interest based on plane's id.
+        '''
         for s in seats:
                 db.config.db.session.delete(s)
         db.config.db.session.commit()
@@ -40,6 +64,10 @@ class SeatItem(flask_restful.Resource):
 
 
     def post(s):
+        '''
+        This is the POST method that creates new seats in the database.
+        '''
+
         if flask.request.content_type != 'application/json':
             return "Request content type must be JSON", 415
         if flask.request.method != 'POST':

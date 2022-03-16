@@ -43,6 +43,39 @@ class Masonify:
     NAME_SPACE = 'alden'
 
     @staticmethod
+    def seat(seats):
+        '''
+        This builds the hypermedia required for the Seat resource.
+        '''
+        masonified = src.utilities.mason_builder.MasonBuilder()
+        masonified.add_control_delete(
+            ctrl_name=Masonify.NAME_SPACE + ':delete-seat',
+            href=db.config.api.url_for(
+                src.resources.seats.Seat,
+                seats=seats
+            )
+        ).add_control_put(
+            ctrl_name=Masonify.NAME_SPACE + ':edit-seat',
+            href=db.config.api.url_for(
+                src.resources.seats.Seat,
+                seats=seats
+            )
+        ).add_control(
+                ctrl_name='up',
+                href=db.config.api.url_for(
+                    src.resources.seats.SeatItem
+            )
+        )
+
+        __add_entry_points_and_name_space__(
+            masonified=masonified,
+            _except='seat-all'
+        )
+        return masonified
+
+
+
+    @staticmethod
     def plane(plane):
         '''
         This builds the required hypermedia for the Plane resource.
