@@ -22,7 +22,11 @@ class TestPlane:
         assert resp.status_code == 200
         d = json.loads(resp.data)
         default_prepopulated_planes_num = 15
-        assert len(d) == default_prepopulated_planes_num
+        assert len(d['planes_list']) == default_prepopulated_planes_num
+
+        # test hypermedia
+        assert '@controls' in d
+        assert '@namespaces' in d
 
 
 

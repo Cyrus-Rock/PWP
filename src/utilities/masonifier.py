@@ -74,6 +74,39 @@ class Masonify:
 
         return masonified
 
+    @staticmethod
+    def plane_item(planes):
+        '''
+        This builds the response body and the required hypermedia for the
+        PlaneItem resource.
+        '''
+        masonified_planes = []
+        for p in planes:
+            masonified = src.utilities.mason_builder.MasonBuilder(p.serialize())
+            masonified.add_control(
+                ctrl_name='self',
+                href=db.config.api.url_for(
+                    src.resources.planes.Plane,
+                    plane=p
+                )
+            )
+            masonified_planes.append(masonified)
+
+        masonified = src.utilities.mason_builder.MasonBuilder(
+            {'planes_list': masonified_planes}
+        ).add_control_post(
+            ctrl_name=Masonify.NAME_SPACE + ':add-plane',
+            href=db.config.api.url_for(src.resources.planes.PlaneItem)
+        )
+
+        __add_entry_points_and_name_space__(
+            masonified=masonified,
+            _except='plane-all'
+        )
+        return masonified
+
+
+
 
     @staticmethod
     def client(client):

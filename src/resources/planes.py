@@ -39,9 +39,13 @@ class PlaneItem(flask_restful.Resource):
         hypermedia control is `plane-all`.
         '''
         planes = db.planes.Plane.query.all()
-        return flask.Response(json.dumps([p.serialize() for p in planes]),
+        result = src.utilities.masonifier.Masonify.plane_item(planes)
+        return flask.Response(
+            json.dumps(result),
             200,
-            mimetype='json')
+            mimetype=src.utilities.mason_builder.MASON_TYPE
+        )
+
 
 
 
