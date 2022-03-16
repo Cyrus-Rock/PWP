@@ -4,8 +4,9 @@ import flask
 import flask_restful
 
 
+LINK_RELATIONS_URL = '/flight-management-system/link-relations/'
 
-app = flask.Flask(__name__)
+app = flask.Flask(__name__, static_folder='static')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # silents a warning
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.db' # silents a warning
 db = flask_sqlalchemy.SQLAlchemy(app)

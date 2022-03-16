@@ -4,12 +4,26 @@ import sqlalchemy.exc
 import db.config
 import json
 import db.clients
+import src.utilities.masonifier
+import src.utilities.mason_builder
 
 
 class Client(flask_restful.Resource):
 
     def get(s, client):
-        return flask.Response(json.dumps(client.serialize()), 200, mimetype='json')
+        '''
+        This is the GET method that returns the infromation of the client, based
+        on the provided token criterion.
+        '''
+        result = client.serialize()
+        result.update(
+            src.utilities.masonifier.Masonify.client(client)
+        )
+        return flask.Response(
+                json.dumps(result),
+                200,
+                mimetype=src.utilities.mason_builder.MASON_TYPE
+            )
 
     def delete(s, client):
         db.config.db.session.delete(client)

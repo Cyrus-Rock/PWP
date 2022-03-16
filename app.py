@@ -5,7 +5,14 @@ from db.seats import Seat
 from db.flights import Flight
 from db.orders import Order
 from db.reservations import Reservation
-from db.config import * 
+from db.config import app, db, api
+
+import sqlalchemy
+import flask_sqlalchemy
+import flask
+import db.config
+import flask_restful
+
 import src.resources.clients
 import src.resources.planes
 import src.resources.flights
@@ -18,6 +25,12 @@ import src.resources.exception_handlers
 import src.utilities.mason_builder
 import json
 
+
+
+
+@app.route(db.config.LINK_RELATIONS_URL)
+def send_link_relations_html():
+        return flask.send_from_directory(app.static_folder, 'link-relations.html')
 
 @app.route('/api/')
 def entry_point():
