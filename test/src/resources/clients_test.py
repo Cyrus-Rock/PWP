@@ -21,7 +21,10 @@ class TestClient:
         assert resp.status_code == 200
         d = json.loads(resp.data)
         default_prepopulated_clients_num = 5
-        assert len(d) == default_prepopulated_clients_num
+        assert len(d['clients_list']) == default_prepopulated_clients_num
+
+        assert '@controls' in d
+        assert '@namespaces' in d
 
 
     def test_get(s, tclient):

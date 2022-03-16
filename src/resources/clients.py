@@ -33,13 +33,21 @@ class Client(flask_restful.Resource):
 
 class ClientItem(flask_restful.Resource):
     def get(s):
+        '''
+        This is the GET method that returns all the clients that are in the 
+        database.
+        '''
         clients = db.clients.Client.query.all()
-        return flask.Response(json.dumps([c.serialize() for c in clients]),
+        result = src.utilities.masonifier.Masonify.client_item(clients)
+        return flask.Response(json.dumps(result),
             200,
-            mimetype='json')
+            mimetype=src.utilities.mason_builder.MASON_TYPE)
 
 
     def post(s):
+        '''
+        This is the POST method that creates a new client in the database.
+        '''
         if flask.request.content_type != 'application/json':
             return "Request content type must be JSON", 415
         if flask.request.method != 'POST':

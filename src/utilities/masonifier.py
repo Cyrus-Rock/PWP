@@ -2,8 +2,6 @@
 The purpose of this module is to add hypermedia to resources.
 '''
 
-from re import M
-from src import resources
 import src.utilities.mason_builder
 import src.resources.clients
 import db.config
@@ -17,6 +15,8 @@ def __add_entry_points_and_name_space__(masonified, _except):
     Internal func to add entry point hypermedia except `_except` to the 
     masonified. It also adds the namespaces link relations.
     '''
+    _except = Masonify.NAME_SPACE + ':' + _except
+
     controls = 'seat-all:plane-all:flight-all:client-all'.split(':')
     controls = tuple(map(lambda c: Masonify.NAME_SPACE + ':' + c, controls))
     resources = (
@@ -72,5 +72,34 @@ class Masonify:
             _except='client-all'
         )
 
+        return masonified
+
+
+    @staticmethod
+    def client_item(clients):
+        '''
+        This builds the response body and the required hypermedia for the
+        ClientItem resource.
+        '''
+        masonified_clients = []
+        for c in clients:
+            masonified = src.utilities.mason_builder.MasonBuilder(c.serialize())
+            masonified.add_control(
+                ctrl_name='self',
+                href=db.config.api.url_for(
+                    src.resources.clients.Client,
+                    client=c
+                )
+            )
+            masonified_clients.append(masonified)
+
+        masonified = src.utilities.mason_builder.MasonBuilder(
+            {'clients_list': masonified_clients}
+        )
+
+        __add_entry_points_and_name_space__(
+            masonified=masonified,
+            _except='client-all'
+        )
         return masonified
 
