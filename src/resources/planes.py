@@ -10,6 +10,46 @@ import src.utilities.mason_builder
 
 class Plane(flask_restful.Resource):
 
+
+    def put(s, plane):
+        '''
+        This is the PUT method that updates the information of the specified
+        plane.
+        '''
+        if flask.request.content_type != 'application/json':
+            return flask.Response(
+                "Request content type must be JSON",
+                status=415
+            )
+        if flask.request.method != 'PUT':
+            return flask.Response(
+                "PUT method required",
+                status=405
+            )
+        try:
+            plane.deserialize(flask.request.json)
+            db.config.db.session.add(plane)
+            db.config.db.session.commit()
+        except (TypeError, KeyError):
+            return flask.Response(
+                "Incomplete request - missing fields",
+                status=400
+            )
+        except sqlalchemy.exc.IntegrityError:
+            return flask.Response(
+                "This plane already exists",
+                status=409
+            )
+        return flask.Response(
+                headers={
+                    'location': db.config.api.url_for(
+                            Plane,
+                            plane=plane
+                    )
+                },
+                status=204
+        )
+
     def get(s, plane):
         '''
         This is the GET method that returns the plane based on its id.

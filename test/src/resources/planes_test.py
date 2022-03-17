@@ -105,3 +105,28 @@ class TestPlane:
         assert resp.status_code == werkzeug.exceptions.BadRequest.code
 
 
+    def test_put(s, tclient):
+        '''
+        Tests the PUT method for the plane resource. Checks that a valid
+        request receives 204 response. Also checks for missing fields and
+        content type respnonse codes.
+        '''
+        plane = {
+            'name': 'new_name',
+            'current_location': "plane_loc",
+            'updated_on': str(datetime.now())
+        }
+
+
+        plane_id = '14/'
+        
+
+        resp = tclient.put(s.RESOURCE_URI + plane_id, json={'plane': 't'})
+        assert resp.status_code == 400 # missing fields
+
+        resp = tclient.put(s.RESOURCE_URI + plane_id, data=plane)
+        assert resp.status_code == 415 # content type must be json
+
+        resp = tclient.put(s.RESOURCE_URI + plane_id, json=plane)
+        assert resp.status_code == 204 # success
+
