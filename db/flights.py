@@ -38,3 +38,50 @@ class Flight(db.Model):
 
     plane = db.relationship('Plane', back_populates='flight', uselist=False)
     offers = db.relationship('Offer', back_populates='flight', uselist=True)
+
+    @staticmethod
+    def json_schema():
+        '''
+        This defines the schema that is used for the validation of the received
+        request.
+        '''
+        schema = {
+                "type": 'object',
+                'required': [
+                       'flight_datetime',
+                       'plane_id',
+                       'flight_duration',
+                       'origin',
+                       'destination',
+                       'full'
+                ],
+                'properties': {
+                    'flight_datetime': {
+                        'description': 'Determines the time of flight.',
+                        'type': 'string',
+                        'format': 'date-time'
+                    }, # flight_datetime
+                    'plane_id': {
+                        'description': 'Determines the associated plane for this flight.',
+                        'type': 'string'
+                    }, # plane_id
+                    'flight_duration': {
+                        'description': 'Determines the duration interval for this flight.',
+                        'type': 'number'
+                    }, # flight_duration
+                    'origin': {
+                        'description': 'This determines the origin of the flight.',
+                        'type': 'string'
+                    }, # origin
+                    'destination': {
+                           'description': 'This determines the destination of this flight.',
+                           'type': 'string'
+                    }, # destination
+                    'full': {
+                           'description': 'This determines whether all of the' +\
+                                  ' seats are reserved for this flight.',
+                            'type': 'integer' 
+                    } # full
+                } # properties
+        } # schema
+        return schema

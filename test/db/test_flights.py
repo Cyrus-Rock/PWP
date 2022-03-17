@@ -34,4 +34,16 @@ def test_create_instance(db_handle):
     assert db_flight.plane == plane
 
 
+def test_json_schema(db_handle):
+    '''
+    Tests whether json schema exists for the `flight` model.
+    '''
+
+    check_keywords = 'type:required:properties'.split(':')
+    for k in check_keywords:
+        assert k in Flight.json_schema()
+
+    requireds = 'flight_datetime:plane_id:flight_duration:origin:destination:full'.split(':')
+    for r in requireds:
+        assert r in Flight.json_schema()['required']
 
