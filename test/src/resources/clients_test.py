@@ -48,6 +48,13 @@ class TestClient:
         d = json.loads(resp.data)
         assert d['name'] == 'name4' and d['surname'] == 'surename4'
 
+        # test for hypermedia
+        assert '@controls' in d
+        assert '@namespaces' in d
+        assert 'alden:edit-client' in d['@controls']
+        assert 'schema' in d['@controls']['alden:edit-client']
+
+
         resp = tclient.get(s.RESOURCE_URI + 'doesnt-exist/')
         assert resp.status_code == 404 # not found
 

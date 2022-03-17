@@ -149,7 +149,8 @@ class Masonify:
             href=db.config.api.url_for(
                 src.resources.seats.Seat,
                 seats=seats
-            )
+            ),
+            schema=db.seats.Seat.json_schema()
         ).add_control(
                 ctrl_name='up',
                 href=db.config.api.url_for(
@@ -223,7 +224,8 @@ class Masonify:
                 href=db.config.api.url_for(
                     src.resources.planes.Plane,
                     plane=plane
-                )
+                ),
+                schema=db.planes.Plane.json_schema()
             ).add_control(
                 ctrl_name='up',
                 href=db.config.api.url_for(
@@ -316,7 +318,8 @@ class Masonify:
                 href=db.config.api.url_for(
                     src.resources.clients.Client,
                     client=client
-                )
+                ),
+                schema=db.clients.Client.json_schema()
             ).add_control(
                 ctrl_name='up',
                 href=db.config.api.url_for(

@@ -58,6 +58,9 @@ class TestPlane:
         # check for hypermedia
         assert '@controls' in d
         assert '@namespaces' in d
+        assert 'alden:edit-plane' in d['@controls']
+        assert 'schema' in d['@controls']['alden:edit-plane']
+
 
         resp = tclient.get(s.RESOURCE_URI + 'doesnt-exist/')
         assert resp.status_code == 404 # not found
