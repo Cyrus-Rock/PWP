@@ -22,3 +22,48 @@ class Seat(db.Model):
     plane_id = db.Column(db.Integer, db.ForeignKey("plane.id", ondelete="SET NULL"))
 
     plane = db.relationship('Plane', back_populates='seats', uselist=False)
+
+    @staticmethod
+    def json_schema():
+        '''
+        This defines the schema that is used for the validation of the received
+        request.
+        '''
+        schema = {
+                "type": 'object',
+                'required': [
+                       'updated_on',
+                       'plane_id',
+                       'capacity',
+                ],
+                'properties': {
+                    'updated_on': {
+                        'description': 'Determines the last time of update for this seat.',
+                        'type': 'string',
+                        'format': 'date-time'
+                    }, # updated_on
+                    'plane_id': {
+                        'description': 'Determines the associated plane for this seat.',
+                        'type': 'string'
+                    }, # plane_id
+                    'capacity': {
+                        'description': 'Determines the different capacities for' +\
+                               ' different seat types.',
+                        'type': 'object',
+                        'required': ['Economic', 'Business'],
+                        'properties': {
+                               'Economic': {
+                                   'description': 'Determines the total number' +\
+                                          ' of seats for economic class.',
+                                   'type': 'integer'
+                               }, # Economic
+                               'Business': {
+                                   'description': 'Determines the total number' +\
+                                          ' of seats for business class.',
+                                   'type': 'integer'
+                               } # Business
+                        } # properties
+                    } # capacity
+              } # properties
+        } # schema
+        return schema

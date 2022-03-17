@@ -31,4 +31,20 @@ def test_create_instance(db_handle):
     assert db_seat.plane == plane
 
 
+def test_json_schema(db_handle):
+    '''
+    Tests whether json schema exists for the `seat` model.
+    '''
+
+    check_keywords = 'type:required:properties'.split(':')
+    for k in check_keywords:
+        assert k in Seat.json_schema()
+
+    requireds = 'updated_on:plane_id:capacity'.split(':')
+    for r in requireds:
+        assert r in Seat.json_schema()['required']
+
+    requireds = 'Economic:Business'.split(':')
+    for r in requireds:
+        assert r in Seat.json_schema()['properties']['capacity']['required']
 
