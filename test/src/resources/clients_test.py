@@ -23,8 +23,11 @@ class TestClient:
         default_prepopulated_clients_num = 5
         assert len(d['clients_list']) == default_prepopulated_clients_num
 
+        # test for hypermedia
         assert '@controls' in d
         assert '@namespaces' in d
+        assert 'alden:add-client' in d['@controls']
+        assert 'schema' in d['@controls']['alden:add-client']
 
 
     def test_get(s, tclient):

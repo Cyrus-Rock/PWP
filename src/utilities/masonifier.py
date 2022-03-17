@@ -8,6 +8,10 @@ import db.config
 import src.resources.seats
 import src.resources.planes
 import src.resources.flights
+import db.flights
+import db.seats
+import db.planes
+import db.clients
 
 
 def __add_entry_points_and_name_space__(masonified, _except):
@@ -82,7 +86,8 @@ class Masonify:
             ctrl_name=Masonify.NAME_SPACE + ':add-flights',
             href=db.config.api.url_for(
                 src.resources.flights.FlightCollection
-            )
+            ),
+            schema=db.flights.Flight.json_schema()
         )
 
         __add_entry_points_and_name_space__(
@@ -189,7 +194,8 @@ class Masonify:
             ctrl_name=Masonify.NAME_SPACE + ':add-seat',
             href=db.config.api.url_for(
                 src.resources.seats.SeatItem
-            )
+            ),
+            schema=db.seats.Seat.json_schema()
         )
 
         __add_entry_points_and_name_space__(
@@ -254,7 +260,8 @@ class Masonify:
             {'planes_list': masonified_planes}
         ).add_control_post(
             ctrl_name=Masonify.NAME_SPACE + ':add-plane',
-            href=db.config.api.url_for(src.resources.planes.PlaneItem)
+            href=db.config.api.url_for(src.resources.planes.PlaneItem),
+            schema=db.planes.Plane.json_schema()
         )
 
         __add_entry_points_and_name_space__(
@@ -349,7 +356,8 @@ class Masonify:
             ctrl_name=Masonify.NAME_SPACE + ':add-client',
             href=db.config.api.url_for(
                 src.resources.clients.ClientItem
-            )
+            ),
+            schema=db.clients.Client.json_schema()
         )
 
         __add_entry_points_and_name_space__(

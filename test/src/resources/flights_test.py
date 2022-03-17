@@ -26,6 +26,9 @@ class TestFlight:
         # check for hypermedia
         assert '@controls' in d
         assert '@namespaces' in d
+        assert 'alden:add-flights' in d['@controls']
+        assert 'schema' in d['@controls']['alden:add-flights']
+
 
     def test_get(s, tclient):
         '''

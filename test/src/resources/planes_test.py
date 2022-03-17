@@ -27,6 +27,9 @@ class TestPlane:
         # test hypermedia
         assert '@controls' in d
         assert '@namespaces' in d
+        assert 'alden:add-plane' in d['@controls']
+        assert 'schema' in d['@controls']['alden:add-plane']
+
 
 
 

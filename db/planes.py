@@ -28,6 +28,9 @@ class Plane(db.Model):
 
 
     def serialize(s):
+        '''
+        Serializes this model to be used inside response body of a reply.
+        '''
         result = {
                 'name': s.name,
                 'current_location': s.current_location,
@@ -36,6 +39,10 @@ class Plane(db.Model):
         return result
 
     def deserialize(s, json):
+        '''
+        Deserializes the received request to build an appropriate entry in the
+        model.
+        '''
         try:
             jsonschema.validate(json,
                 s.json_schema(),
@@ -49,6 +56,10 @@ class Plane(db.Model):
 
     @staticmethod
     def json_schema():
+        '''
+        This defines the schema that is used for the validation of the received
+        request.
+        '''
         schema = {
                 "type": 'object',
                 'required': ['name', 'current_location', 'updated_on'],
