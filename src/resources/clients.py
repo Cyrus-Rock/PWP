@@ -26,9 +26,51 @@ class Client(flask_restful.Resource):
             )
 
     def delete(s, client):
+        '''
+        This is the DELETE method that removes the client of interest.
+        '''
         db.config.db.session.delete(client)
         db.config.db.session.commit()
         return flask.Response(status=200)
+
+    def put(s, client):
+        '''
+        This is the PUT method that updates the information of the specified
+        client.
+        '''
+        if flask.request.content_type != 'application/json':
+            return flask.Response(
+                "Request content type must be JSON",
+                status=415
+            )
+        if flask.request.method != 'PUT':
+            return flask.Response(
+                "PUT method required",
+                status=405
+            )
+        try:
+            client.deserialize(flask.request.json)
+            db.config.db.session.add(client)
+            db.config.db.session.commit()
+        except (TypeError, KeyError):
+            return flask.Response(
+                "Incomplete request - missing fields",
+                status=400
+            )
+        except sqlalchemy.exc.IntegrityError:
+            return flask.Response(
+                "This client already exists",
+                status=409
+            )
+        return flask.Response(
+                headers={
+                    'location': db.config.api.url_for(
+                            Client,
+                            client=client
+                    )
+                },
+                status=204
+        )
 
 
 class ClientItem(flask_restful.Resource):

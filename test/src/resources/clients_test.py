@@ -99,3 +99,32 @@ class TestClient:
         assert resp.status_code == 415 # content type must be json
 
 
+    def test_put(s, tclient):
+        '''
+        Tests the PUT method for the client resource. Checks that a valid
+        request receives 204 response. Checks that duplicate call produces 409
+        response code. Also checks for missing fields and content type respnonse
+        codes.
+        '''
+        client = {
+            'token': 'token_test',
+            'name': 'name_test',
+            'surname': 'surname_test',
+            'created_on': datetime.now().isoformat()
+        }
+
+        client_token = 'token3/'
+        
+
+        resp = tclient.put(s.RESOURCE_URI + client_token, json=client|dict(token='token2'))
+        assert resp.status_code == 409 # already exists
+
+        resp = tclient.put(s.RESOURCE_URI + client_token, json={'token': 't'})
+        assert resp.status_code == 400 # missing fields
+
+        resp = tclient.put(s.RESOURCE_URI + client_token, data=client)
+        assert resp.status_code == 415 # content type must be json
+
+        resp = tclient.put(s.RESOURCE_URI + client_token, json=client)
+        assert resp.status_code == 204 # success
+

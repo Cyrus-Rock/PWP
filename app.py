@@ -63,7 +63,7 @@ app.url_map.converters['ClientConverter'] = src.resources.converters.client_conv
 app.url_map.converters['PlaneConverter'] = src.resources.converters.plane_converter.PlaneConverter
 app.url_map.converters['SeatConverter'] = src.resources.converters.seat_converter.SeatConverter
 
-# `client` is client's token; handles GET and DELETE
+# `client` is client's token; handles GET and DELETE and PUT
 api.add_resource(src.resources.clients.Client,
         '/api/clients/<ClientConverter:client>/') 
 api.add_resource(src.resources.clients.ClientItem,
