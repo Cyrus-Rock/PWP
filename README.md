@@ -100,6 +100,12 @@ python -m pytest --cov .
 
 That's all for the tests.
 
+## How to see the API documentation
+After running the server with the following command:
+```
+python -m flask run
+```
+We could see the API documentation by browsing localhost:5000:/apidocs/
 
 # Group information
 * Student 1. Alireza Bakhshi Zadi Mahmoodi (Alireza(dot)BakhshiZadiMahmoodi(at)student(dot)oulu(dot)fi)
