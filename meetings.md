@@ -33,14 +33,21 @@ Since everything was implemented fully, no further actions was required.
 *ONLY USED BY COURSE STAFF: Additional comments from the course staff*
 
 ## Meeting 3.
-* **DATE:**
-* **ASSISTANTS:**
+* **DATE:15/03/2022**
+* **ASSISTANTS: Mika Oja**
 
 ### Minutes
 *Summary of what was discussed during the meeting*
 
 ### Action points
 *List here the actions points discussed with assistants*
+- Uniform Interface was missing
+- Project structure should be changed
+- Code quality had some issues
+- Some of the documentations were missing
+- Decorator converters were required to be changed to utility functions
+- PUT methods were missing
+
 
 
 ### Comments from staff
