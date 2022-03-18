@@ -1,0 +1,1308 @@
+---
+openapi: 3.0.3
+servers:
+- url: /api
+components:
+  schemas:
+    client:
+      properties:
+        created_on:
+          description: Determines the time of creation.
+          format: date-time
+          type: string
+        name:
+          description: Determines the name of the client.
+          type: string
+        surname:
+          description: Determines the surname of the client.
+          type: string
+        token:
+          description: This is the token of the client.
+          type: string
+      required:
+      - name
+      - surname
+      - created_on
+      - token
+      type: object
+    seat:
+      properties:
+        updated_on:
+          description: Determines the last time of update for this seat.
+          format: date-time
+          type: string
+        plane_id:
+          description: Determines the associated plane for this seat.
+          type: string
+        capacity:
+          description: Determines the different capacities for different seat types.
+          type: object
+          required:
+          - Economic
+          - Business
+          properties:
+            Economic:
+              description: Determines the total number of seats for economic class.
+              type: integer
+            Business:
+              description: Determines the total number of seats for business class.
+              type: integer
+      required:
+      - updated_on
+      - plane_id
+      - capacity
+      type: object
+    plane:
+      properties:
+        current_location:
+          description: Determines the current location of the plane.
+          type: string
+        name:
+          description: Determines the name of the plane.
+          type: string
+        updated_on:
+          description: Determines the time stamp for update of the info.
+          format: date-time
+          type: string
+      required:
+      - name
+      - current_location
+      - updated_on
+      type: object
+    flight:
+      properties:
+        destination:
+          description: This determines the destination of this flight.
+          type: string
+        flight_datetime:
+          description: Determines the time of flight.
+          format: date-time
+          type: string
+        flight_duration:
+          description: Determines the duration interval for this flight.
+          type: number
+        full:
+          description: This determines whether all of the seats are reserved for this flight.
+          type: integer
+        origin:
+          description: This determines the origin of the flight.
+          type: string
+        plane_id:
+          description: Determines the associated plane for this flight.
+          type: string
+      required:
+      - flight_datetime
+      - plane_id
+      - flight_duration
+      - origin
+      - destination
+      - full
+      type: object
+
+
+
+  parameters:
+    client:
+      description: Selected client's unique token
+      in: path
+      name: client
+      required: true
+      schema: 
+        $ref: '#/components/schemas/client'
+    seat:
+      description: Selected seats based on the plane's ID.
+      in: path
+      name: seat
+      required: true
+      schema:
+        $ref: '#/components/schemas/seat'
+    plane:
+      description: Selected plane based on the plane's ID.
+      in: path
+      name: plane
+      required: true
+      schema:
+        $ref: '#/components/schemas/plane'
+    origin:
+      description: This is the origin of the flight.
+      in: path
+      name: origin
+      required: true
+      schema:
+        type: string
+        additionalProperties: false
+    destination:
+      description: This is the destionation of the flight.
+      in: path
+      name: destination
+      required: true
+      schema:
+        type: string
+        additionalProperties: false
+    flight:
+      description: This is the information of the requested flight.
+      in: path
+      name: flight
+      required: true
+      schema:
+        $ref: '#/components/schemas/flight'
+        
+
+        
+
+
+
+
+info:
+  title: Flight Management System Examples
+  version: 0.0.1
+  description: |
+    This page provides many API examples for the Flight Management System.
+    It shows how to add, delete, update and view different objects related to their respective resources.
+  termsOfService: http://link.to.term.of.service/
+  contact:
+    url: http://link.to.contact.page/
+    email: responsible@person.com
+    name: Responsible Person
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+    
+paths:
+  /clients/{client}/:
+    parameters:
+    - $ref: '#/components/parameters/client'
+    get:
+      description: |
+        Returns the information about the client of interest,
+        based on the provided token criterion.
+      responses:
+        '200':
+          description: |
+            When the client is retrieved from the databse.
+          content:
+            application/vnd.mason+json:
+              example:
+                name: name6
+                surname: surename6
+                created_on: '2022-02-22T13:13:10.804411'
+                "@controls":
+                  alden:delete-client:
+                    method: DELETE
+                    title: Deletes the item of interest.
+                    href: "/api/clients/token3/"
+                  alden:edit-client:
+                    method: PUT
+                    encoding: json
+                    title: Updtates the item of interest.
+                    schema:
+                      type: object
+                      required:
+                      - name
+                      - surname
+                      - created_on
+                      - token
+                      properties:
+                        created_on:
+                          description: Determines the time of creation.
+                          type: string
+                          format: date-time
+                        name:
+                          description: Determines the name of the client.
+                          type: string
+                        surname:
+                          description: Determines the surname of the client.
+                          type: string
+                        token:
+                          description: This is the token of the client.
+                          type: string
+                    href: "/api/clients/token3/"
+                  up:
+                    href: "/api/clients/"
+                  alden:seat-all:
+                    href: "/api/seats/"
+                  alden:plane-all:
+                    href: "/api/planes/"
+                  alden:flight-all:
+                    href: "/api/flights/"
+                "@namespaces":
+                  alden:
+                    name: "/flight-management-system/link-relations/"
+                    
+        '404':
+          description: |
+            This happens when the requested client doesn't
+            exist in the database.
+          content:
+            text/html:
+              example: |
+                could not find the item you are looking for
+            
+    delete:
+      description: |
+        Deletes the client of interest according to the provided
+        token.
+      responses:
+        '200':
+          description: means the delete was successful.
+        '404':
+          description: |
+            means that the requested client doesn't exist in
+            the database to be deleted.
+          content:
+            text/html:
+              example: |
+                could not find the item you are looking for
+    put:
+      description: |
+        Updates the client of interest according to the provided
+        token.
+      responses:
+        '204':
+          description: means that the update was successful.
+          headers:
+            Location:
+              description: determines the location for this resource.
+              schema:
+                type: string
+        '404':
+          description: |
+            means that the requested client doesn't exist in
+            the database to be updated.
+          content:
+            text/html:
+              example: |
+                could not find the item you are looking for
+        '415':
+          description: |
+            this is returned when the application type is not
+            JSON.
+        '405':
+          description: |
+            this happends when the used method is not PUT.
+        '409':
+          description: |
+            this happends when new information conflicts with the
+            old information in the database.
+        '400':
+          description: |
+            this happens when there are some missing fields in the
+            request.
+              
+  /clients/:
+    parameters:
+    - $ref: '#/components/parameters/client'
+    post:
+      description: |
+        Creates a new client.
+      requestBody:
+        description: |
+          The JSON format is used when requesting for creation of
+          a new client.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/client'
+            example:
+              name: name6
+              surname: surename6
+              token: token6
+              created_on: '2022-02-22 13:13:10.804411'
+              
+      responses:
+        '201':
+          description: means that the creation was successful.
+          headers:
+            Location:
+              description: determines the location for this resource.
+              schema:
+                type: string
+        '415':
+          description: |
+            this is returned when the application type is not
+            JSON.
+        '405':
+          description: |
+            this happends when the used method is not PUT.
+        '409':
+          description: |
+            this happens when the provided information conflicts
+            with the old information in the database.
+        '400':
+          description: |
+            this happens when there are some missing fields in the
+            request.
+         
+    get:
+      description: |
+        Returns the information for all the clients.
+      responses:
+        '200':
+          description: |
+            When all the information for clients is retrieved
+            from the databse.
+          content:
+            application/vnd.mason+json:
+              example:
+                clients_list:
+                - name: name0
+                  surname: surename0
+                  created_on: '2022-03-16T07:48:00.783198'
+                  "@controls":
+                    self:
+                      href: "/api/clients/token0/"
+                - name: name2
+                  surname: surename2
+                  created_on: '2022-03-16T07:48:00.784149'
+                  "@controls":
+                    self:
+                      href: "/api/clients/token2/"
+                - name: name6
+                  surname: surename6
+                  created_on: '2022-02-22T13:13:10.804411'
+                  "@controls":
+                    self:
+                      href: "/api/clients/token6/"
+                - name: name4
+                  surname: surename4
+                  created_on: '2022-03-16T07:48:00.784149'
+                  "@controls":
+                    self:
+                      href: "/api/clients/token4/"
+                "@controls":
+                  alden:add-client:
+                    method: POST
+                    encoding: json
+                    title: Creates a new item of interest.
+                    schema:
+                      type: object
+                      required:
+                      - name
+                      - surname
+                      - created_on
+                      - token
+                      properties:
+                        created_on:
+                          description: Determines the time of creation.
+                          type: string
+                          format: date-time
+                        name:
+                          description: Determines the name of the client.
+                          type: string
+                        surname:
+                          description: Determines the surname of the client.
+                          type: string
+                        token:
+                          description: This is the token of the client.
+                          type: string
+                    href: "/api/clients/"
+                  alden:seat-all:
+                    href: "/api/seats/"
+                  alden:plane-all:
+                    href: "/api/planes/"
+                  alden:flight-all:
+                    href: "/api/flights/"
+                "@namespaces":
+                  alden:
+                    name: "/flight-management-system/link-relations/"
+
+  /seats/{seat}/:
+    parameters:
+    - $ref: '#/components/parameters/seat'
+   
+    get:
+      description: |
+        Returns the seat information for the specified plane's ID.
+      responses:
+        '200':
+          description: |
+            When the seat information is retrieved from the databse.
+          content:
+            application/vnd.mason+json:
+              example:
+                plane_name: plane1
+                capacity:
+                  Business: 51
+                  Economic: 50
+                updated_on: '2022-03-16 07:47:58.985141'
+                "@controls":
+                  alden:delete-seat:
+                    method: DELETE
+                    title: Deletes the item of interest.
+                    href: "/api/seats/2/"
+                  alden:edit-seat:
+                    method: PUT
+                    encoding: json
+                    title: Updtates the item of interest.
+                    schema:
+                      type: object
+                      required:
+                      - updated_on
+                      - plane_id
+                      - capacity
+                      properties:
+                        updated_on:
+                          description: Determines the last time of update for this seat.
+                          type: string
+                          format: date-time
+                        plane_id:
+                          description: Determines the associated plane for this seat.
+                          type: string
+                        capacity:
+                          description: Determines the different capacities for different seat types.
+                          type: object
+                          required:
+                          - Economic
+                          - Business
+                          properties:
+                            Economic:
+                              description: Determines the total number of seats for economic class.
+                              type: integer
+                            Business:
+                              description: Determines the total number of seats for business class.
+                              type: integer
+                    href: "/api/seats/2/"
+                  up:
+                    href: "/api/seats/"
+                  alden:plane-all:
+                    href: "/api/planes/"
+                  alden:flight-all:
+                    href: "/api/flights/"
+                  alden:client-all:
+                    href: "/api/clients/"
+                "@namespaces":
+                  alden:
+                    name: "/flight-management-system/link-relations/"
+
+                    
+        '404':
+          description: |
+            This happens when the requested seat information doesn't
+            exist in the database.
+          content:
+            text/html:
+              example: |
+                could not find the item you are looking for
+        
+    delete:
+      description: |
+        Deletes the seat of interest according to the provided
+        plane's ID.
+      responses:
+        '200':
+          description: means the delete was successful.
+        '404':
+          description: |
+            means that the requested seat doesn't exist in
+            the database to be deleted.
+          content:
+            text/html:
+              example: |
+                could not find the item you are looking for
+ 
+  /seats/:
+    parameters:
+    - $ref: '#/components/parameters/seat'
+    post:
+      description: |
+        Creates a new seat.
+      requestBody:
+        description: |
+          The JSON format is used when requesting for creation of
+          a new seat.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/seat'
+            example:
+              plane_id: 4
+              capacity:
+                Economic: 99
+                Business: 99
+              updated_on: '2022-02-22 13:13:10.881407'
+              
+      responses:
+        '201':
+          description: means that the creation was successful.
+          headers:
+            Location:
+              description: determines the location for this resource.
+              schema:
+                type: string
+        '415':
+          description: |
+            this is returned when the application type is not
+            JSON.
+        '405':
+          description: |
+            this happends when the used method is not POST.
+        '400':
+          description: |
+            this happens when there are some missing fields in the
+            request.  
+        '401':
+          description: |
+            this happens when there are some type errors in the 
+            request.
+    
+    get:
+      description: |
+        Returns the information for all the seats in the 
+        database.
+      responses:
+        '200':
+          description: |
+            When all the information for the seats is retrieved
+            from the databse.
+          content:
+            application/vnd.mason+json:
+              example:
+                seats_list:
+                - plane_name: plane0
+                  capacity:
+                    Business: 46
+                    Economic: 52
+                  updated_on: '2022-03-16 07:47:58.928173'
+                  plane_id: 1
+                  "@controls":
+                    self:
+                      href: "/api/seats/1/"
+                - plane_name: plane1
+                  capacity:
+                    Business: 51
+                    Economic: 50
+                  updated_on: '2022-03-16 07:47:58.985141'
+                  plane_id: 2
+                  "@controls":
+                    self:
+                      href: "/api/seats/2/"
+                - plane_name: plane2
+                  capacity:
+                    Business: 58
+                    Economic: 76
+                  updated_on: '2022-03-16 07:47:58.985141'
+                  plane_id: 3
+                  "@controls":
+                    self:
+                      href: "/api/seats/3/"
+                - plane_name: plane3
+                  capacity:
+                    Business: 45
+                    Economic: 51
+                  updated_on: '2022-03-16 07:47:58.985141'
+                  plane_id: 4
+                  "@controls":
+                    self:
+                      href: "/api/seats/4/"
+                - plane_name: plane4
+                  capacity:
+                    Business: 55
+                    Economic: 46
+                  updated_on: '2022-03-16 07:47:58.985141'
+                  plane_id: 5
+                  "@controls":
+                    self:
+                      href: "/api/seats/5/"
+                - plane_name: plane5
+                  capacity:
+                    Business: 67
+                    Economic: 41
+                  updated_on: '2022-03-16 07:47:58.985141'
+                  plane_id: 6
+                  "@controls":
+                    self:
+                      href: "/api/seats/6/"
+                - plane_name: plane6
+                  capacity:
+                    Business: 64
+                    Economic: 52
+                  updated_on: '2022-03-16 07:47:58.985141'
+                  plane_id: 7
+                  "@controls":
+                    self:
+                      href: "/api/seats/7/"
+                - plane_name: plane7
+                  capacity:
+                    Business: 70
+                    Economic: 49
+                  updated_on: '2022-03-16 07:47:58.986150'
+                  plane_id: 8
+                  "@controls":
+                    self:
+                      href: "/api/seats/8/"
+                - plane_name: plane8
+                  capacity:
+                    Business: 55
+                    Economic: 42
+                  updated_on: '2022-03-16 07:47:58.986150'
+                  plane_id: 9
+                  "@controls":
+                    self:
+                      href: "/api/seats/9/"
+                - plane_name: plane9
+                  capacity:
+                    Business: 70
+                    Economic: 40
+                  updated_on: '2022-03-16 07:47:58.986150'
+                  plane_id: 10
+                  "@controls":
+                    self:
+                      href: "/api/seats/10/"
+                - plane_name: plane10
+                  capacity:
+                    Business: 43
+                    Economic: 67
+                  updated_on: '2022-03-16 07:47:58.986150'
+                  plane_id: 11
+                  "@controls":
+                    self:
+                      href: "/api/seats/11/"
+                - plane_name: plane11
+                  capacity:
+                    Business: 42
+                    Economic: 54
+                  updated_on: '2022-03-16 07:47:58.986150'
+                  plane_id: 12
+                  "@controls":
+                    self:
+                      href: "/api/seats/12/"
+                - plane_name: plane12
+                  capacity:
+                    Business: 77
+                    Economic: 62
+                  updated_on: '2022-03-16 07:47:58.986150'
+                  plane_id: 13
+                  "@controls":
+                    self:
+                      href: "/api/seats/13/"
+                - plane_name: new name
+                  capacity:
+                    Business: 41
+                    Economic: 74
+                  updated_on: '2022-02-22 13:13:10.804411'
+                  plane_id: 14
+                  "@controls":
+                    self:
+                      href: "/api/seats/14/"
+                - plane_name: plane14
+                  capacity:
+                    Business: 71
+                    Economic: 77
+                  updated_on: '2022-03-16 07:47:58.986150'
+                  plane_id: 15
+                  "@controls":
+                    self:
+                      href: "/api/seats/15/"
+                "@controls":
+                  alden:add-seat:
+                    method: POST
+                    encoding: json
+                    title: Creates a new item of interest.
+                    schema:
+                      type: object
+                      required:
+                      - updated_on
+                      - plane_id
+                      - capacity
+                      properties:
+                        updated_on:
+                          description: Determines the last time of update for this seat.
+                          type: string
+                          format: date-time
+                        plane_id:
+                          description: Determines the associated plane for this seat.
+                          type: string
+                        capacity:
+                          description: Determines the different capacities for different seat types.
+                          type: object
+                          required:
+                          - Economic
+                          - Business
+                          properties:
+                            Economic:
+                              description: Determines the total number of seats for economic class.
+                              type: integer
+                            Business:
+                              description: Determines the total number of seats for business class.
+                              type: integer
+                    href: "/api/seats/"
+                  alden:plane-all:
+                    href: "/api/planes/"
+                  alden:flight-all:
+                    href: "/api/flights/"
+                  alden:client-all:
+                    href: "/api/clients/"
+                "@namespaces":
+                  alden:
+                    name: "/flight-management-system/link-relations/"
+  
+  /planes/{plane}/:
+    parameters:
+    - $ref: '#/components/parameters/plane'
+    get:
+      description: |
+        Returns the plane information for the specified plane's ID.
+      responses:
+        '200':
+          description: |
+            When the plane information is retrieved from the databse.
+          content:
+            application/vnd.mason+json:
+              example:
+                name: plane1
+                current_location: DHN
+                updated_on: '2022-03-16T07:47:58.985141'
+                "@controls":
+                  alden:delete-plane:
+                    method: DELETE
+                    title: Deletes the item of interest.
+                    href: "/api/planes/2/"
+                  alden:edit-plane:
+                    method: PUT
+                    encoding: json
+                    title: Updtates the item of interest.
+                    schema:
+                      type: object
+                      required:
+                      - name
+                      - current_location
+                      - updated_on
+                      properties:
+                        updated_on:
+                          description: Determines the time stamp for update of the info.
+                          type: string
+                          format: date-time
+                        name:
+                          description: Determines the name of the plane.
+                          type: string
+                        current_location:
+                          description: Determines the current location of the plane.
+                          type: string
+                    href: "/api/planes/2/"
+                  up:
+                    href: "/api/planes/"
+                  alden:seat-all:
+                    href: "/api/seats/"
+                  alden:flight-all:
+                    href: "/api/flights/"
+                  alden:client-all:
+                    href: "/api/clients/"
+                "@namespaces":
+                  alden:
+                    name: "/flight-management-system/link-relations/"
+                    
+        '404':
+          description: |
+            This happens when the requested plane information doesn't
+            exist in the database.
+          content:
+            text/html:
+              example: |
+                could not find the item you are looking for
+        
+    put:
+      description: |
+        Updates the plane of interest according to the provided
+        ID.
+      responses:
+        '204':
+          description: means that the update was successful.
+          headers:
+            Location:
+              description: determines the location for this resource.
+              schema:
+                type: string
+        '404':
+          description: |
+            means that the requested plane doesn't exist in
+            the database to be updated.
+          content:
+            text/html:
+              example: |
+                could not find the item you are looking for
+        '415':
+          description: |
+            this is returned when the application type is not
+            JSON.
+        '405':
+          description: |
+            this happends when the used method is not PUT.
+        '409':
+          description: |
+            this happends when new information conflicts with the
+            old information in the database.
+        '400':
+          description: |
+            this happens when there are some missing fields in the
+            request.
+            
+            
+    delete:
+      description: |
+        Deletes the plane of interest according to the provided
+        plane's ID.
+      responses:
+        '200':
+          description: means the delete was successful.
+        '404':
+          description: |
+            means that the requested plane doesn't exist in
+            the database to be deleted.
+          content:
+            text/html:
+              example: |
+                could not find the item you are looking for
+    
+    
+  /planes/:
+    parameters:
+    - $ref: '#/components/parameters/plane'
+    post:
+      description: |
+        Creates a new plane.
+      requestBody:
+        description: |
+          The JSON format is used when requesting for creation of
+          a new plane.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/plane'
+            example:
+              name: new name
+              current_location: test loc 1
+              updated_on: '2022-02-22 13:13:10.804411'
+              
+      responses:
+        '201':
+          description: means that the creation was successful.
+          headers:
+            Location:
+              description: determines the location for this resource.
+              schema:
+                type: string
+        '415':
+          description: |
+            this is returned when the application type is not
+            JSON.
+        '405':
+          description: |
+            this happends when the used method is not POST.
+        '400':
+          description: |
+            this happens when there are some missing fields in the
+            request.  
+        '401':
+          description: |
+            this happens when there are some type errors in the 
+            request.
+            
+            
+    get:
+      description: |
+        Returns the information for all the planes in the 
+        database.
+      responses:
+        '200':
+          description: |
+            When all the information for the planes is retrieved
+            from the databse.
+          content:
+            application/vnd.mason+json:
+              example:
+                planes_list:
+                - name: plane0
+                  current_location: BHM
+                  updated_on: '2022-03-16T07:47:58.928173'
+                  "@controls":
+                    self:
+                      href: "/api/planes/1/"
+                - name: plane1
+                  current_location: DHN
+                  updated_on: '2022-03-16T07:47:58.985141'
+                  "@controls":
+                    self:
+                      href: "/api/planes/2/"
+                - name: plane2
+                  current_location: HSV
+                  updated_on: '2022-03-16T07:47:58.985141'
+                  "@controls":
+                    self:
+                      href: "/api/planes/3/"
+                - name: plane3
+                  current_location: MOB
+                  updated_on: '2022-03-16T07:47:58.985141'
+                  "@controls":
+                    self:
+                      href: "/api/planes/4/"
+                - name: plane4
+                  current_location: MGM
+                  updated_on: '2022-03-16T07:47:58.985141'
+                  "@controls":
+                    self:
+                      href: "/api/planes/5/"
+                - name: plane5
+                  current_location: LHD
+                  updated_on: '2022-03-16T07:47:58.985141'
+                  "@controls":
+                    self:
+                      href: "/api/planes/6/"
+                - name: plane6
+                  current_location: ANI
+                  updated_on: '2022-03-16T07:47:58.985141'
+                  "@controls":
+                    self:
+                      href: "/api/planes/7/"
+                - name: plane7
+                  current_location: BET
+                  updated_on: '2022-03-16T07:47:58.986150'
+                  "@controls":
+                    self:
+                      href: "/api/planes/8/"
+                - name: plane8
+                  current_location: CDV
+                  updated_on: '2022-03-16T07:47:58.986150'
+                  "@controls":
+                    self:
+                      href: "/api/planes/9/"
+                - name: plane9
+                  current_location: SCC
+                  updated_on: '2022-03-16T07:47:58.986150'
+                  "@controls":
+                    self:
+                      href: "/api/planes/10/"
+                - name: plane10
+                  current_location: DLG
+                  updated_on: '2022-03-16T07:47:58.986150'
+                  "@controls":
+                    self:
+                      href: "/api/planes/11/"
+                - name: plane11
+                  current_location: FAI
+                  updated_on: '2022-03-16T07:47:58.986150'
+                  "@controls":
+                    self:
+                      href: "/api/planes/12/"
+                - name: plane12
+                  current_location: GST
+                  updated_on: '2022-03-16T07:47:58.986150'
+                  "@controls":
+                    self:
+                      href: "/api/planes/13/"
+                - name: new name
+                  current_location: test loc 1
+                  updated_on: '2022-02-22T13:13:10.804411'
+                  "@controls":
+                    self:
+                      href: "/api/planes/14/"
+                - name: plane14
+                  current_location: JNU
+                  updated_on: '2022-03-16T07:47:58.986150'
+                  "@controls":
+                    self:
+                      href: "/api/planes/15/"
+                "@controls":
+                  alden:add-plane:
+                    method: POST
+                    encoding: json
+                    title: Creates a new item of interest.
+                    schema:
+                      type: object
+                      required:
+                      - name
+                      - current_location
+                      - updated_on
+                      properties:
+                        updated_on:
+                          description: Determines the time stamp for update of the info.
+                          type: string
+                          format: date-time
+                        name:
+                          description: Determines the name of the plane.
+                          type: string
+                        current_location:
+                          description: Determines the current location of the plane.
+                          type: string
+                    href: "/api/planes/"
+                  alden:seat-all:
+                    href: "/api/seats/"
+                  alden:flight-all:
+                    href: "/api/flights/"
+                  alden:client-all:
+                    href: "/api/clients/"
+                "@namespaces":
+                  alden:
+                    name: "/flight-management-system/link-relations/"
+
+  /offers/{client}/{origin}/{destination}:
+    parameters:
+    - $ref: '#/components/parameters/client'
+    - $ref: '#/components/parameters/origin'
+    - $ref: '#/components/parameters/destination'
+  
+    get:
+      description: |
+        Returns the offer information for the specified parameters.
+      responses:
+        '200':
+          description: |
+            When the offer information is retrieved from the databse.
+          content:
+            application/vnd.mason+json:
+              example:
+                offer_list:
+                - flight_id: 5
+                  valid_until: '2022-03-16T07:47:58.340139'
+                  client_id: 5
+                - flight_id: 1
+                  valid_until: '2022-03-16T20:27:45.534988'
+                  client_id: 5
+                - flight_id: 1
+                  valid_until: '2022-03-16T20:49:18.170888'
+                  client_id: 5
+                - flight_id: 1
+                  valid_until: '2022-03-16T21:01:34.054854'
+                  client_id: 5
+                - flight_id: 1
+                  valid_until: '2022-03-16T21:05:41.390864'
+                  client_id: 5
+                - flight_id: 1
+                  valid_until: '2022-03-18T15:54:34.838256'
+                  client_id: 5
+                "@controls":
+                  up:
+                    href: link to the not-implemented OfferCollection resource
+                  alden:seat-all:
+                    href: "/api/seats/"
+                  alden:plane-all:
+                    href: "/api/planes/"
+                  alden:flight-all:
+                    href: "/api/flights/"
+                  alden:client-all:
+                    href: "/api/clients/"
+                "@namespaces":
+                  alden:
+                    name: "/flight-management-system/link-relations/"
+
+        '404':
+          description: |
+            This happens when the requested offer information doesn't
+            exist in the database.
+          content:
+            text/html:
+              example: |
+                could not find the item you are looking for
+  
+  /flights/{origin}/{destination}:
+    parameters:
+    - $ref: '#/components/parameters/origin'
+    - $ref: '#/components/parameters/destination'
+    
+    get:
+      description: |
+        Returns the flight information for the specified parameters.
+      responses:
+        '200':
+          description: |
+            When the flight information is retrieved from the databse.
+          content:
+            application/vnd.mason+json:
+              example:
+                flights_list:
+                - flight_id: 1
+                  flight_datetime: '2022-03-16 07:47:58.340139'
+                  plane_id: 1
+                  flight_duration: 127
+                  origin: BHM
+                  destination: DLG
+                  updated_on: '2022-03-16 07:47:58.340139'
+                  full: false
+                "@controls":
+                  up:
+                    href: "/api/flights/"
+                  alden:seat-all:
+                    href: "/api/seats/"
+                  alden:plane-all:
+                    href: "/api/planes/"
+                  alden:client-all:
+                    href: "/api/clients/"
+                "@namespaces":
+                  alden:
+                    name: "/flight-management-system/link-relations/"
+        '404':
+          description: |
+            This happens when the requested flight information doesn't
+            exist in the database.
+          content:
+            text/html:
+              example: |
+                could not find the item you are looking for
+    
+  /flights/:
+    parameters:
+    - $ref: '#/components/parameters/flight'
+
+    post:
+      description: |
+        Creates new flights based on the provided list.
+      requestBody:
+        description: |
+          The JSON format is used when requesting for creation of
+          a new flight.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/flight'
+            example:
+            - flight_datetime: '2022-02-22 13:13:10.804411'
+              plane_id: 1
+              flight_duration: 243.1
+              origin: origin1
+              destination: destination1
+              full: 0
+            - flight_datetime: '2022-02-20 13:13:10.804411'
+              plane_id: 2
+              flight_duration: 100.1
+              origin: origin2
+              destination: destination2
+              full: 0
+              
+      responses:
+        '201':
+          description: means that the creation was successful.
+          headers:
+            Location:
+              description: determines the location for this resource.
+              schema:
+                type: string
+        '415':
+          description: |
+            this is returned when the application type is not
+            JSON.
+        '405':
+          description: |
+            this happends when the used method is not POST.
+        '400':
+          description: |
+            this happens when there are some missing fields in the
+            request.  
+        '401':
+          description: |
+            this happens when there are some type errors in the 
+            request.
+       
+    get:
+      description: |
+        Returns the information for all the flights in the 
+        database.
+      responses:
+        '200':
+          description: |
+            When all the information for the flights is retrieved
+            from the databse.
+          content:
+            application/vnd.mason+json:
+              example:
+                flights_list:
+                - flight_id: 1
+                  flight_datetime: '2022-03-16 07:47:58.340139'
+                  plane_id: 1
+                  flight_duration: 127
+                  origin: BHM
+                  destination: DLG
+                  updated_on: '2022-03-16 07:47:58.340139'
+                  full: false
+                  "@controls":
+                    self:
+                      href: "/api/flights/BHM/DLG/"
+                - flight_id: 2
+                  flight_datetime: '2022-03-16 07:47:58.340139'
+                  plane_id: 2
+                  flight_duration: 167
+                  origin: DHN
+                  destination: FAI
+                  updated_on: '2022-03-16 07:47:58.340139'
+                  full: false
+                  "@controls":
+                    self:
+                      href: "/api/flights/DHN/FAI/"
+                - flight_id: 3
+                  flight_datetime: '2022-03-16 07:47:58.340139'
+                  plane_id: 3
+                  flight_duration: 171
+                  origin: HSV
+                  destination: GST
+                  updated_on: '2022-03-16 07:47:58.340139'
+                  full: false
+                  "@controls":
+                    self:
+                      href: "/api/flights/HSV/GST/"
+                - flight_id: 4
+                  flight_datetime: '2022-03-16 07:47:58.340139'
+                  plane_id: 4
+                  flight_duration: 137
+                  origin: MOB
+                  destination: HOM
+                  updated_on: '2022-03-16 07:47:58.340139'
+                  full: false
+                  "@controls":
+                    self:
+                      href: "/api/flights/MOB/HOM/"
+                - flight_id: 5
+                  flight_datetime: '2022-03-16 07:47:58.340139'
+                  plane_id: 5
+                  flight_duration: 103
+                  origin: MGM
+                  destination: JNU
+                  updated_on: '2022-03-16 07:47:58.340139'
+                  full: false
+                  "@controls":
+                    self:
+                      href: "/api/flights/MGM/JNU/"
+                "@controls":
+                  alden:add-flights:
+                    method: POST
+                    encoding: json
+                    title: Creates a new item of interest.
+                    schema:
+                      type: object
+                      required:
+                      - flight_datetime
+                      - plane_id
+                      - flight_duration
+                      - origin
+                      - destination
+                      - full
+                      properties:
+                        flight_datetime:
+                          description: Determines the time of flight.
+                          type: string
+                          format: date-time
+                        plane_id:
+                          description: Determines the associated plane for this flight.
+                          type: string
+                        flight_duration:
+                          description: Determines the duration interval for this flight.
+                          type: number
+                        origin:
+                          description: This determines the origin of the flight.
+                          type: string
+                        destination:
+                          description: This determines the destination of this flight.
+                          type: string
+                        full:
+                          description: This determines whether all of the seats are reserved for this
+                            flight.
+                          type: integer
+                    href: "/api/flights/"
+                  alden:seat-all:
+                    href: "/api/seats/"
+                  alden:plane-all:
+                    href: "/api/planes/"
+                  alden:client-all:
+                    href: "/api/clients/"
+                "@namespaces":
+                  alden:
+                    name: "/flight-management-system/link-relations/"
+
+
