@@ -1,1 +1,91 @@
-this is the link relations webpage
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Link Relations Page</title>
+    </head>
+
+    <body>
+
+        <h1>Link Relations</h1>
+        <p>This page explains the link relations of the whole API.</p>
+
+        <p>The following is the list and explanations of the entry points:</p>
+        <ul>
+            <li> seat-all: retreives all the information for the seats.  </li>
+            <li> plane-all: retreives all the information for the planes. </li>
+            <li> flight-all: retreives all the information for the flights. </li>
+            <li> offer-all: retreives all the information for the offers. </li>
+            <li> client-all: retreives all the information for the clients. </li>
+        </ul>
+
+        <p>The following is the list and explanations of the `/clients/{client}/` resource:</p>
+        <ul>
+            <li> delete-client: deletes the client of interest. </li>
+            <li> edit-client: edits the client of interest. </li>
+            <li> up: goes up to its parent resource `/clients/`. </li>
+        </ul>
+
+        <p>The following is the list and explanations of the `/clients/` resource:</p>
+        <ul>
+            <li> add-client: adds a new client to the database. </li>
+            <li> self: goes to the resource `/clients/{client}/` for this specific client</li>
+        </ul>
+
+        <p>The following is the list and explanations of the `/planes/{plane_id}/` resource:</p>
+        <ul>
+            <li> delete-plane: deletes the plane of interest. </li>
+            <li> edit-plane: edits the plane of interest. </li>
+            <li> up: goes up to its parent resource `/planes/`. </li>
+        </ul>
+
+        <p>The following is the list and explanations of the `/planes/` resource:</p>
+        <ul>
+            <li> add-plane: adds a new plane to the database. </li>
+            <li> self: goes to the resource `/planes/{plane_id}/` for this specific plane</li>
+        </ul>
+
+        <p>The following is the list and explanations of the `/seats/{plane_id}/` resource:</p>
+        <ul>
+            <li> delete-seat: deletes the seat information for the provided plane's ID. </li>
+            <li> edit-seat: edits the seat information for the provided plane's ID. </li>
+            <li> up: goes up to its parent resource `/seats/`. </li>
+        </ul>
+
+        <p>The following is the list and explanations of the `/seats/` resource:</p>
+        <ul>
+            <li> add-seat: adds a new seat information to the database. </li>
+            <li> self: goes to the resource `/seats/{plane_id}/` for this specific seat. </li>
+        </ul>
+
+
+        <p>The following is the list and explanations of the `/flights/{origin}/{destination}/` resource:</p>
+        <ul>
+            <li> up: goes up to its parent resource `/flights/`. </li>
+        </ul>
+
+        <p>The following is the list and explanations of the `/flights/` resource:</p>
+        <ul>
+            <li> add-flights: adds a list of flights to the database. </li>
+            <li> self: goes to the resource `/flights/{origin}/{destination}/` for this specific flight. </li>
+        </ul>
+
+
+        <p>The following is the list and explanations of the `/offers/{client_token}/{origin}/{destination}/`</p>
+        <ul>
+            <li> up: goes up to its parent resource `/offers/`. </li>
+        </ul>
+
+        <p>The following is the list and explanations of the `/offers/` resource:</p>
+        <ul>
+            <li> add-offer: adds a list of offers to the database. </li>
+            <li> self: goes to the resource `/offers/{client_token}/{origin}/{destination}/` for this specific offer. </li>
+        </ul>
+
+
+        <h1>Namespaces</h1>
+        <p>The name space <b>alden</b> is prepended before any of the provided links. For example,
+            edit-plane becomes alden:edit-plane or flight-all becomes alden:flight-all.
+        </p>
+
+    </body>
+</html> 
