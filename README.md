@@ -26,7 +26,7 @@ Now, we need to create and populate a default database for this project. The fol
 ## Construction of the Database and Its Population with Default Values
 We need to create the actual database and fill it with some default values in order to work with it. To create the actual database, we need to , first, go to the location for the database's codes. Remember that now, we are in the main directory of the project. We need the following command to change to the desired directory:
 ```
-cd ./db/utilities
+cd ./fms/db/utilities
 ```
 
 Now, we need the following commands to create and populate the default database:
@@ -101,7 +101,7 @@ python -m pytest --cov .
 That's all for the tests.
 
 ## How to see the API documentation
-After running the server with the following command:
+After running the server with the following command from the `fms` directory:
 ```
 python -m flask run
 ```
