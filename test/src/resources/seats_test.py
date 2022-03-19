@@ -1,7 +1,7 @@
 from datetime import datetime
 import json
-import sys
-sys.path.append('./src/')
+#import sys
+#sys.path.append('./src/')
 from config import tclient # refers to ./src/
 
 

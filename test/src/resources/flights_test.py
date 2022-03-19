@@ -1,6 +1,6 @@
 from datetime import datetime
-import sys
-sys.path.append('../')
+#import sys
+#sys.path.append('../')
 import json
 from config import tclient # refers to ../
 

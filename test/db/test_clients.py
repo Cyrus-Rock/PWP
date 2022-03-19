@@ -9,6 +9,8 @@ import flask_restful
 import jsonschema
 import werkzeug.exceptions
 import datetime
+import sys
+sys.path.append('../fms')
 from db.clients import Client
 from test_config import db_handle
 

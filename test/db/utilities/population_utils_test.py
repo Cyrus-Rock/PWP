@@ -1,5 +1,5 @@
-import sys
-sys.path.append('./db/')
+#import sys
+#sys.path.append('./db/')
 from test_config import db_handle # referes to ../
 from db.utilities.population_utils import Populate # refers to ../../db/utilities
 from db.planes import Plane # refers to ../../db

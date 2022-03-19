@@ -1,7 +1,7 @@
 from datetime import datetime
 import werkzeug.exceptions
-import sys
-sys.path.append('./src')
+#import sys
+#sys.path.append('./src')
 import json
 from config import tclient # refers to ./src
 
