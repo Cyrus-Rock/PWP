@@ -108,21 +108,21 @@ components:
       name: client
       required: true
       schema: 
-        $ref: '#/components/schemas/client'
+        type: string
     seat:
       description: Selected seats based on the plane's ID.
       in: path
       name: seat
       required: true
       schema:
-        $ref: '#/components/schemas/seat'
+        type: integer
     plane:
       description: Selected plane based on the plane's ID.
       in: path
       name: plane
       required: true
       schema:
-        $ref: '#/components/schemas/plane'
+        type: integer
     origin:
       description: This is the origin of the flight.
       in: path
@@ -139,16 +139,6 @@ components:
       schema:
         type: string
         additionalProperties: false
-    flight:
-      description: This is the information of the requested flight.
-      in: path
-      name: flight
-      required: true
-      schema:
-        $ref: '#/components/schemas/flight'
-        
-
-        
 
 
 
@@ -290,8 +280,6 @@ paths:
             request.
               
   /clients/:
-    parameters:
-    - $ref: '#/components/parameters/client'
     post:
       description: |
         Creates a new client.
@@ -501,8 +489,6 @@ paths:
                 could not find the item you are looking for
  
   /seats/:
-    parameters:
-    - $ref: '#/components/parameters/seat'
     post:
       description: |
         Creates a new seat.
@@ -855,8 +841,6 @@ paths:
     
     
   /planes/:
-    parameters:
-    - $ref: '#/components/parameters/plane'
     post:
       description: |
         Creates a new plane.
@@ -1139,9 +1123,6 @@ paths:
                 could not find the item you are looking for
     
   /flights/:
-    parameters:
-    - $ref: '#/components/parameters/flight'
-
     post:
       description: |
         Creates new flights based on the provided list.
@@ -1304,5 +1285,3 @@ paths:
                 "@namespaces":
                   alden:
                     name: "/flight-management-system/link-relations/"
-
-
