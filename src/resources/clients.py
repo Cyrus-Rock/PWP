@@ -9,6 +9,9 @@ import src.utilities.mason_builder
 
 
 class Client(flask_restful.Resource):
+    '''
+    This is to provide services for `/clients/{client_token}/`.
+    '''
 
     def get(s, client):
         '''
@@ -74,6 +77,10 @@ class Client(flask_restful.Resource):
 
 
 class ClientItem(flask_restful.Resource):
+    '''
+    This is to provide services for `/clients/`
+    '''
+
     def get(s):
         '''
         This is the GET method that returns all the clients that are in the 

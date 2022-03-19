@@ -1,12 +1,16 @@
-from src.resources.converters.config import *
 import db.seats
-
+import werkzeug.routing 
+import werkzeug.exceptions
 
 class SeatConverter(werkzeug.routing.BaseConverter):
+    '''
+    This is a converter for `seat` model.
+    '''
 
     def to_python(s, seats):
         '''
-        `seats` is plane's id.
+        Returns a list of seats based on the provided plane's ID.
+        Parameter `seats` is plane's id.
         '''
         seats = db.seats.Seat.query.filter_by(plane_id=seats).all() 
         if not seats:
@@ -14,4 +18,7 @@ class SeatConverter(werkzeug.routing.BaseConverter):
         return seats
 
     def to_url(s, seats):
+        '''
+        Returns the plane's ID for the provided list of seats.
+        '''
         return str(seats[0].plane.id)

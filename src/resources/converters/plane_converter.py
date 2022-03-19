@@ -1,12 +1,16 @@
-from src.resources.converters.config import *
+import werkzeug.routing 
+import werkzeug.exceptions
 import db.planes
 
 
 class PlaneConverter(werkzeug.routing.BaseConverter):
+    '''
+    This is a converter for `plane` model.
+    '''
 
     def to_python(s, plane):
         '''
-        `plane` is plane's id.
+        Returns the plane object based on the plane's id.
         '''
         plane = db.planes.Plane.query.filter_by(id=plane).first() 
         if not plane:
@@ -14,4 +18,7 @@ class PlaneConverter(werkzeug.routing.BaseConverter):
         return plane
 
     def to_url(s, plane):
+        '''
+        Returns the plane's ID based on the plane object.
+        '''
         return str(plane.id)

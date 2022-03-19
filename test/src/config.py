@@ -12,6 +12,9 @@ import app
 
 @sqlalchemy.event.listens_for(sqlalchemy.engine.Engine, "connect")
 def set_sqlite_pragma(dbapi_connection, connection_record):
+    '''
+    Ensures that foreign-key constraint is not violated.
+    '''
     cursor = dbapi_connection.cursor()
     cursor.execute("PRAGMA foreign_keys=ON")
     cursor.close()
@@ -20,6 +23,10 @@ def set_sqlite_pragma(dbapi_connection, connection_record):
 
 @pytest.fixture
 def tclient(): # t for test
+    '''
+    Creates a test client and a temporary db handle, and then removes the db
+    handle.
+    '''
     db_fd, db_fname = tempfile.mkstemp()
     db.config.app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + db_fname
     db.config.app.config["TESTING"] = True
@@ -34,6 +41,9 @@ def tclient(): # t for test
 
 
 def populate_db():
+    '''
+    Populates the database with default values.
+    '''
     db.config.db.create_all()
 
     db.utilities.population_utils.Populate.plane(db.config.db)

@@ -10,6 +10,9 @@ import src.utilities.mason_builder
 
 
 class Seat(flask_restful.Resource):
+    '''
+    This serves `/seats/{plane_id}/`.
+    '''
 
     def get(s, seats):
         '''
@@ -44,6 +47,9 @@ class Seat(flask_restful.Resource):
 
 
 class SeatItem(flask_restful.Resource):
+    '''
+    This serves `/planes/`.
+    '''
 
     def get(s):
         '''
@@ -63,9 +69,6 @@ class SeatItem(flask_restful.Resource):
             200,
             mimetype=src.utilities.mason_builder.MASON_TYPE
         )
-
-
-
 
 
     def post(s):

@@ -43,12 +43,12 @@ def __add_entry_points_and_name_space__(masonified, _except):
     return masonified
 
 class Masonify:
+    '''
+    This is a utility to be used to provide the necessary hypermedia to
+    different response bodies for different resources.
+    '''
 
     NAME_SPACE = 'alden'
-
-
-
-
 
     @staticmethod
     def flight_collection(flights):

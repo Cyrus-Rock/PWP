@@ -4,14 +4,18 @@ Provides utilities to populate database with defalut values.
 
 import datetime
 import random
-from db.config import * # refers to ../ config.py
-from db.planes import Plane # refers to ../ planes.py
-from db.flights import Flight # refers to ../ flights.py
-from db.seats import Seat # refers to ../ seats.py
-from db.offers import Offer # refers to ../ offers.py
-from db.clients import Client # refers to ../ clients.py
-from db.orders import Order # refers to ../ orders.py
-from db.reservations import Reservation # refers to ../ reservations.py
+import sqlalchemy
+import flasgger
+import flask_sqlalchemy
+import flask
+import flask_restful
+from db.planes import Plane 
+from db.flights import Flight 
+from db.seats import Seat 
+from db.offers import Offer 
+from db.clients import Client 
+from db.orders import Order 
+from db.reservations import Reservation 
 
 
 class Get:
@@ -22,6 +26,10 @@ class Get:
     def plane(name,
             current_location,
             updated_on=datetime.datetime.now()):
+        '''
+        Builds a plane instance, according to the provided parameters, from
+        `plane` db model.
+        '''
         return Plane(
                 name=name,
                 current_location=current_location,
@@ -30,6 +38,10 @@ class Get:
 
     @staticmethod
     def seats(plane):
+        '''
+        Builds a seat instance, according to the provided plane parmeter, from
+        `seat` db model.
+        '''
         types = ('Business', 'Economic')
         capacities = random.sample(range(40, 80), 2)
         return [
@@ -50,6 +62,10 @@ class Get:
             flight_duration=random.randrange(100, 200), # the unit is in minutes
             updated_on=datetime.datetime.now(),
             full=False):
+        '''
+        Builds a flight instance, according to the provided parameters, from
+        `flight` db model.
+        '''
         return Flight(
                 plane=plane,
                 origin=origin,
@@ -62,6 +78,9 @@ class Get:
 
     @staticmethod
     def clients():
+        '''
+        Builds a list of client instances from `client` db model.
+        '''
         return [Client(
                 token=f'token{i}',
                 name=f'name{i}',
@@ -75,6 +94,10 @@ class Get:
             client,
             flight,
             valid_until=datetime.datetime.now()):
+        '''
+        Builds an offer instance, according to the provided parameters, from
+        `offer` db model.
+        '''
         return Offer(client=client,
                 flight=flight,
                 valid_until=valid_until)
@@ -82,15 +105,27 @@ class Get:
     @staticmethod
     def order(offer,
             created_on=datetime.datetime.now()):
+        '''
+        Builds an order instance, according to the provided parameters, from
+        `order` db model.
+        '''
         return Order(offer=offer,
                 created_on=created_on)
 
     @staticmethod
     def reservation(order,
             seat_number=random.randrange(1, 30)):
+        '''
+        Builds a reservation instance, according to the provided parameters, from
+        `reservation` db model.
+        '''
         return Reservation(order=order, seat_number=seat_number)
 
 class Populate:
+    '''
+    This class is a utility to be used in order to populate different models
+    of interest in the database with some default values.
+    '''
     @staticmethod
     def plane(db):
         '''

@@ -1,6 +1,7 @@
-from test_config import *
+import datetime
+from test_config import db_handle
 from test_offers import get_offer
-from db.orders import * 
+from db.orders import Order
 
 
 def get_order():

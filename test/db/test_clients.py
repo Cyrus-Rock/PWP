@@ -1,9 +1,22 @@
-from test_config import *
-from db.clients import * 
+import pytest
+import os
+import tempfile
+import flask
 import datetime
+import sqlalchemy
+import flask_sqlalchemy
+import flask_restful
+import jsonschema
+import werkzeug.exceptions
+import datetime
+from db.clients import Client
+from test_config import db_handle
 
 
 def get_client():
+    '''
+    Returns a client instance form `client` model.
+    '''
     client = Client(
             token='token1',
             created_on=datetime.datetime.now(),

@@ -11,6 +11,9 @@ import src.utilities.mason_builder
 
 
 class Flight(flask_restful.Resource):
+    '''
+    This provide services for `/flights/{origin}/{destination}/`.
+    '''
 
     def get(s, origin, destination):
         '''
@@ -28,6 +31,10 @@ class Flight(flask_restful.Resource):
         )
 
 class FlightCollection(flask_restful.Resource):
+    '''
+    This provides services for `/flights/`.
+    '''
+
     def get(s):
         '''
         This is the get method to return all the flights in the database. It 

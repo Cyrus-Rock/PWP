@@ -1,11 +1,14 @@
-from test_config import *
-from db.planes import * 
+from test_config import db_handle
+from db.planes import Plane
 import datetime
 
 
 
 
 def get_plane():
+    '''
+    Returns a plane instance based on the `plane` model.
+    '''
     return Plane(
             name='plane1',
             current_location='NYK',

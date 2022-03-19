@@ -1,9 +1,21 @@
-from test_config import *
+import pytest
+import os
+import tempfile
+import flask
+import datetime
+import sqlalchemy
+import flask_sqlalchemy
+from test_config import db_handle
 from test_planes import get_plane
-from db.flights import * 
+from db.flights import Flight
+
 
 
 def get_flight():
+    '''
+    Returns a flight and plane instance based on the `flight` and `plane`
+    models.
+    '''
     plane = get_plane()
     flight = Flight(
             flight_datetime=datetime.datetime.now(),

@@ -1,6 +1,6 @@
 import sys
 sys.path.append('./db/')
-from test_config import * # referes to ../
+from test_config import db_handle # referes to ../
 from db.utilities.population_utils import Populate # refers to ../../db/utilities
 from db.planes import Plane # refers to ../../db
 from db.seats import Seat # refers to ../../db

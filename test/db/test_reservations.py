@@ -1,9 +1,12 @@
-from test_config import *
+from test_config import db_handle
 from test_orders import get_order
-from db.reservations import * 
+from db.reservations import Reservation
 
 
 def get_reservation():
+    '''
+    Returns a reservation instance based on the `reservation` model.
+    '''
     order = get_order()
     reservation = Reservation(
             seat_number=1

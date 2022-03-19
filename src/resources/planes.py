@@ -9,7 +9,9 @@ import src.utilities.masonifier
 import src.utilities.mason_builder
 
 class Plane(flask_restful.Resource):
-
+    '''
+    This servers `/planes/{plane_id}/`.
+    '''
 
     def put(s, plane):
         '''
@@ -76,6 +78,9 @@ class Plane(flask_restful.Resource):
 
 
 class PlaneItem(flask_restful.Resource):
+    '''
+    This serves `/planes/`.
+    '''
 
     def get(s):
         '''
@@ -89,8 +94,6 @@ class PlaneItem(flask_restful.Resource):
             200,
             mimetype=src.utilities.mason_builder.MASON_TYPE
         )
-
-
 
 
     def post(s):

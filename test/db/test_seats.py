@@ -1,9 +1,12 @@
-from test_config import *
+from test_config import db_handle
 from test_planes import get_plane
-from db.seats import * 
+from db.seats import Seat
 
 
 def get_seat():
+    '''
+    Returns a seat and a plane instances based on `seat` and `plane` models.
+    '''
     plane = get_plane()
     seat = Seat(
             type='bussiness',

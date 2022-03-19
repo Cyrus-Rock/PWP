@@ -1,10 +1,20 @@
-from test_config import *
+import pytest
+import os
+import tempfile
+import flask
+import datetime
+import sqlalchemy
+import flask_sqlalchemy
+from test_config import db_handle
 from test_clients import get_client
 from test_flights import get_flight
-from db.offers import * 
+from db.offers import Offer
 
 
 def get_offer():
+    '''
+    Returns an offer instance based on the `offer` model.
+    '''
     client = get_client()
     flight, _plane = get_flight()
     offer = Offer(
