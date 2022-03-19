@@ -9,6 +9,8 @@ import flasgger
 import flask_sqlalchemy
 import flask
 import flask_restful
+import sys
+sys.path.append('../..')
 from db.planes import Plane 
 from db.flights import Flight 
 from db.seats import Seat 

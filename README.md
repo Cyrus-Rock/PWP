@@ -32,7 +32,7 @@ cd ./fms/db/utilities
 Now, we need the following commands to create and populate the default database:
 ```
 python populate_db.py
-cd ..
+cd ../..
 ```
 
 After the execution of these commands is done, we'll be able to see `db.db` file in the current directory by issuing the command:

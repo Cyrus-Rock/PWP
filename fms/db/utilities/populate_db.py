@@ -4,7 +4,7 @@ running this file with command
 creates and populates the database with default values.
 '''
 from population_utils import Populate
-from population_utils import db
+from db.config import db
 
 
 db.create_all()

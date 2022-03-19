@@ -5,7 +5,8 @@ from db.seats import Seat
 from db.flights import Flight
 from db.orders import Order
 from db.reservations import Reservation
-from db.config import app, db, api
+from db.config import db
+from app_config import app, api
 
 import sqlalchemy
 import flask_sqlalchemy
