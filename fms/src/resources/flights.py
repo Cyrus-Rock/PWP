@@ -1,8 +1,10 @@
-import flask_restful
+'''
+Flight resources are defined in this file.
+'''
 import json
-import flask
 import datetime
-import sqlalchemy.exc
+import flask_restful
+import flask
 import db.config
 import db.flights
 import src.resources.converters.flight_converter

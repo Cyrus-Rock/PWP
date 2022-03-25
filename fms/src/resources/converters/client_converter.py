@@ -1,3 +1,6 @@
+'''
+The converter for client is defined in this file.
+'''
 import werkzeug.routing 
 import werkzeug.exceptions
 import db.clients

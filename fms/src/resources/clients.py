@@ -1,8 +1,11 @@
+'''
+Client resources are defined in this file.
+'''
+import json
 import flask_restful
 import flask
 import sqlalchemy.exc
 import db.config
-import json
 import db.clients
 import src.utilities.masonifier
 import src.utilities.mason_builder
@@ -114,4 +117,3 @@ class ClientItem(flask_restful.Resource):
                 headers={'location': db.config.api.url_for(Client,
                 client=client)},
                 status=201)
-

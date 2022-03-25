@@ -1,7 +1,11 @@
-from db.config import db
+'''
+This file defines client database model.
+'''
+from datetime import datetime
+
 import jsonschema
 import werkzeug.exceptions
-from datetime import datetime
+from db.config import db
 
 # db is created by the importing module
 class Client(db.Model):
@@ -15,7 +19,7 @@ class Client(db.Model):
     `created_on` is the timestamp for the creation time of the token.
 
     `name` reperesents the name of the client.
-    
+
     `surname` represents family name of the client.
     '''
     id = db.Column(db.Integer, primary_key=True)
@@ -85,6 +89,3 @@ class Client(db.Model):
                 } # properties
         } # schema
         return schema
-
-
-

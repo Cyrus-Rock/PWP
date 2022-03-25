@@ -1,18 +1,16 @@
 '''
 The purpose of this module is to add hypermedia to resources.
 '''
-
-import src.utilities.mason_builder
-import src.resources.clients
 import db.config
-import src.resources.seats
-import src.resources.planes
-import src.resources.flights
 import db.flights
 import db.seats
 import db.planes
 import db.clients
-
+import src.resources.seats
+import src.utilities.mason_builder
+import src.resources.planes
+import src.resources.clients
+import src.resources.flights
 
 def __add_entry_points_and_name_space__(masonified, _except):
     '''

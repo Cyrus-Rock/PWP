@@ -1,8 +1,11 @@
+'''
+Converter for the offer resource is defined in this file.
+'''
+import datetime
 import werkzeug.exceptions
 import db.offers
 import db.flights
 import db.config
-import datetime
 
 def converter(client, origin, destination):
     '''

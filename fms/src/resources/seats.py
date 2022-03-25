@@ -1,8 +1,10 @@
-import flask_restful
+'''
+All the seat resources are defined in this file.
+'''
 import json
-import flask
 import datetime
-import sqlalchemy.exc
+import flask_restful
+import flask
 import db.config
 import db.seats
 import src.utilities.masonifier
@@ -41,7 +43,7 @@ class Seat(flask_restful.Resource):
         of interest based on plane's id.
         '''
         for s in seats:
-                db.config.db.session.delete(s)
+            db.config.db.session.delete(s)
         db.config.db.session.commit()
         return flask.Response(status=200)
 

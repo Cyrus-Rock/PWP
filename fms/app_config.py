@@ -1,6 +1,7 @@
-import sqlalchemy
+'''
+This is the configuration file for the app.py
+'''
 import flasgger
-import flask_sqlalchemy
 import flask
 import flask_restful
 
@@ -19,6 +20,5 @@ swagger = flasgger.Swagger(
     app,
     template_file='doc/openapi.yaml'
 )
-
 
 api = flask_restful.Api(app)

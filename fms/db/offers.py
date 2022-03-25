@@ -1,3 +1,6 @@
+'''
+This file defines the offer model in the data base.
+'''
 from db.config import db
 
 # db is created by the importing module

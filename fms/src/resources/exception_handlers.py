@@ -1,3 +1,6 @@
+'''
+All exception handlers are defined in this file.
+'''
 import werkzeug.exceptions
 
 class Handle:

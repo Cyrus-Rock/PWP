@@ -1,10 +1,12 @@
+'''
+All plane resources are defined in this file.
+'''
+import json
 import flask_restful
 import flask
-import datetime
 import sqlalchemy.exc
 import db.config
 import db.planes
-import json
 import src.utilities.masonifier
 import src.utilities.mason_builder
 

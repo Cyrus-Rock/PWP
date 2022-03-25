@@ -1,14 +1,8 @@
 '''
 Provides utilities to populate database with defalut values.
 '''
-
 import datetime
 import random
-import sqlalchemy
-import flasgger
-import flask_sqlalchemy
-import flask
-import flask_restful
 import sys
 sys.path.append('../..')
 from db.planes import Plane 

@@ -1,3 +1,6 @@
+'''
+Functionalities that facilitate the use of hypermedia are defined in this file.
+'''
 MASON_TYPE = "application/vnd.mason+json"
 
 

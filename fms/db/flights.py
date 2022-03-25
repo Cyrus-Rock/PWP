@@ -1,3 +1,6 @@
+'''
+This file defines the flight model.
+'''
 from db.config import db
 
 # db is created by the importing module

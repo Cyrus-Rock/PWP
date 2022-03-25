@@ -1,7 +1,10 @@
-import flask_restful
+'''
+Offer resources are defined in this file.
+'''
 import json
-import flask
 import datetime
+import flask_restful
+import flask
 import sqlalchemy.exc
 import db.config
 import src.utilities.mason_builder

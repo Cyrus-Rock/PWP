@@ -1,3 +1,6 @@
+'''
+Converter for the flight resource is defined in this file.
+'''
 import werkzeug.exceptions
 import db.flights
 

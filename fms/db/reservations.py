@@ -1,3 +1,6 @@
+'''
+This file defines the reservation model in the data base.
+'''
 from db.config import db
 
 # db is created by the importing module
@@ -6,7 +9,7 @@ class Reservation(db.Model):
     This table keeps track of all the reservations made by the clients.
 
     The following describe each field of the table:
-    
+
     `seat_number` determines the seat number for the client's choice. Its
                   relationship is 1:N for order:reservation. This is because
                   a client can reserve more than one seat.

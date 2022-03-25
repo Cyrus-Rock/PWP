@@ -1,3 +1,6 @@
+'''
+This file defines the model seat in the data base.
+'''
 from db.config import db
 
 # db is created by the importing module

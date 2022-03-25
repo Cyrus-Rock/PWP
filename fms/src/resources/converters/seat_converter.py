@@ -1,3 +1,6 @@
+'''
+The converter for the seat resource is defined in this file.
+'''
 import db.seats
 import werkzeug.routing 
 import werkzeug.exceptions

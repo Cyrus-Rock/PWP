@@ -1,7 +1,11 @@
-from db.config import db
+'''
+This file defines the plane model in the data base.
+'''
+from datetime import datetime
+
 import jsonschema
 import werkzeug.exceptions
-from datetime import datetime
+from db.config import db
 
 
 # db is created by the importing module
@@ -80,6 +84,3 @@ class Plane(db.Model):
                 } # properties
         } # schema
         return schema
-
-
-
