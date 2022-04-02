@@ -24,5 +24,5 @@ class SeatConverter(werkzeug.routing.BaseConverter):
         '''
         Returns the plane's ID for the provided list of seats.
         '''
-        #return str(seats[0].plane.id)
-        return str(seats)
+        return str(seats[0].plane.id)
+        #return str(seats)

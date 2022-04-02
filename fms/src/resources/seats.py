@@ -88,19 +88,23 @@ class SeatItem(flask_restful.Resource):
             seats = {k:cpcty[k] for k in cpcty}
             updated_on = datetime.datetime.fromisoformat(flask.request.json['updated_on'])
             
+            seats_list = []
             for type in seats:
                 seat = db.seats.Seat(
                         plane_id=plane_id,
                         capacity=seats[type],
                         type=type)
                 db.config.db.session.add(seat)
+                seats_list.append(seat)
             db.config.db.session.commit()
         except KeyError:
             return "Incomplete request - missing fields", 400
         except TypeError:
             return "One or some of the provided types is not right", 401
         return flask.Response(
-                headers={'location': db.config.api.url_for(Seat,
-                seats=plane_id)},
+                headers={'location': db.config.api.url_for(
+                                        Seat,
+                                        seats=seats_list)
+                },
                 status=201)
 
