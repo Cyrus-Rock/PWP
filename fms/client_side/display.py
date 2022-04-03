@@ -10,6 +10,34 @@ class Display:
     '''
 
     @staticmethod
+    def client_menu():
+        '''
+        Displays the information for the client menu.
+
+        Returns: dict that maps each number to the corresponding option.
+        '''
+        print(
+            """
+
+            You have the follwing options:
+
+            1) View the information for all the clinets
+            2) Get the information for a specific client
+            3) Create a new client
+            4) Delete the information for a specific client
+            5) Update the information for a specific client
+
+            """
+        )
+        return {
+            1: 'client-all',
+            2: 'GET',
+            3: 'POST',
+            4: 'DELETE',
+            5: 'PUT'
+        }
+
+    @staticmethod
     def seat_menu():
         '''
         Displays the information for the seat menu.
@@ -18,6 +46,7 @@ class Display:
         '''
         print(
             '''
+
             You have the following options:
 
             1) View the information for all the seats

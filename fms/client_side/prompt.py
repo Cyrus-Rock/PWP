@@ -37,6 +37,16 @@ class Prompt:
 
 
     @staticmethod
+    def from_client_menu():
+        '''
+        Prompts the user from client menu, and returns their choice.
+
+        Returns: None or the option that the user has chosen.
+        '''
+        mapping = Display.client_menu()
+        return get_input(mapping)
+
+    @staticmethod
     def from_seat_menu():
         '''
         Prompts the user from seat menu, and retuns their choice.
