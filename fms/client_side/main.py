@@ -7,7 +7,8 @@ from access import Access
 
 access_mapping = {
     'seat': Access.seat_resource,
-    'client': Access.client_resource
+    'client': Access.client_resource,
+    'plane': Access.plane_resource
 }
 
 def handle_user():

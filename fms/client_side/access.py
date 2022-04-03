@@ -387,6 +387,220 @@ class Access:
         }
     # end of class Client
 
+    class Plane:
+        '''
+        Provides methods for differnt options chosen by the user for the plane resource.
+        '''
+
+        @staticmethod
+        def view_all():
+            '''
+            Shows the information for all the planes.
+            '''
+            with requests.Session() as s:
+                s.headers.update({'Accept': 'application/vnd.mason+json'})
+                resp = s.get(SERVER_URL + '/api/')
+                name_space = list(resp.json()['@namespaces'].keys())[0]
+                resource_loc = resp.json()['@controls'][f'{name_space}:plane-all']['href']
+                resp = s.get(SERVER_URL + resource_loc)
+
+            planes_list = resp.json()['planes_list']
+            print('\nHere is the information for all planes:')
+            for i, plane in enumerate(planes_list, start=1):
+                print(
+                    f'{i}) plane\'s name: "{plane["name"]}" is currently located'
+                    f' at "{plane["current_location"]}" was updated on '
+                    f'"{plane["updated_on"]}"'
+                )
+            print()
+
+        @staticmethod
+        def get():
+            '''
+            Displays the information for a specific plane, based on the provided
+            plane id.
+            '''
+            try:
+                plane_id = int(input(
+                    "Enter the plane's id you wish to see the infromation > "
+                    )
+                )
+            except ValueError:
+                try:
+                    plane_id = int(
+                        input(
+                            'Your choice wasnt right. Try again or press '
+                            'enter to go one level beack > '
+                        )
+                    )
+                except ValueError:
+                    return
+
+            with requests.Session() as s:
+                s.headers.update({'Accept': 'application/vnd.mason+json'})
+                resp = s.get(SERVER_URL + '/api/')
+                name_space = list(resp.json()['@namespaces'].keys())[0]
+                resource_loc = resp.json()['@controls'][f'{name_space}:plane-all']['href']
+                resp = s.get(SERVER_URL + resource_loc + f'/{plane_id}/')
+
+            if resp.status_code != 200:
+                print("\nThere is no information for the provided plane's id\n")
+                return
+
+            plane = resp.json()
+            print(
+                f'\nThe plane\'s name is "{plane["name"]}" and it\'s currently '
+                f'located at "{plane["current_location"]}" and it was updated '
+                f'on: "{plane["updated_on"]}"'
+            )
+            print()
+
+        @staticmethod
+        def delete():
+            '''
+            Deletes the plane information based on the provided plane's id.
+            '''
+            try:
+                plane_id = int(input(
+                    "Enter the plane's id you wish to delete the infromation > "
+                    )
+                )
+            except ValueError:
+                try:
+                    plane_id = int(
+                        input(
+                            'Your choice wasnt right. Try again or press '
+                            'enter to go one level beack > '
+                        )
+                    )
+                except ValueError:
+                    return
+
+            with requests.Session() as s:
+                s.headers.update({'Accept': 'application/vnd.mason+json'})
+                resp = s.get(SERVER_URL + '/api/')
+                name_space = list(resp.json()['@namespaces'].keys())[0]
+                resource_loc = resp.json()['@controls'][f'{name_space}:plane-all']['href']
+                resp = s.delete(SERVER_URL + resource_loc + f'/{plane_id}/')
+
+            if resp.status_code != 200:
+                print(
+                    "\nThere is no information for the provided plane's id "
+                    "to be deleted\n"
+                )
+                return
+
+            print(
+                '\nYour requested plane information has been successfully '
+                'deleted.\n'
+            )
+
+        @staticmethod
+        def post():
+            '''
+            Creates new plane infromation.
+            '''
+            name = input(
+                "Enter the name for the plane > "
+            )
+
+            loc = input(
+                "Enter the current location for the plane > "
+            )
+
+            data = {
+                'name': name,
+                'current_location': loc,
+                'updated_on': str(datetime.now())
+            }
+
+            with requests.Session() as s:
+                s.headers.update({'Accept': 'application/vnd.mason+json'})
+                resp = s.get(SERVER_URL + '/api/')
+                name_space = list(resp.json()['@namespaces'].keys())[0]
+                resource_loc = resp.json()['@controls'][f'{name_space}:plane-all']['href']
+                resp = s.post(
+                    SERVER_URL + resource_loc,
+                    data=json.dumps(data),
+                    headers={'Content-type': 'application/json'}
+                )
+
+            if resp.status_code != 201:
+                print(
+                    '\nThere was some error, the requested operation hasn\'t'
+                    ' been done.\n'
+                )
+                print('error code: ', resp.status_code)
+                return
+            print('\nThe information has been created.\n')
+
+        @staticmethod
+        def put():
+            '''
+            Updates the plane's infromation based on the provided plane id.
+            '''
+            plane_id = input(
+                "Enter the plane's id you want to update > "
+            )
+
+            name = input(
+                "Enter a new name for the plane > "
+            )
+
+            loc = input(
+                "Enter a new location for the plane > "
+            )
+
+            data = {
+                'name': name,
+                'current_location': loc,
+                'updated_on': str(datetime.now())
+            }
+
+            with requests.Session() as s:
+                s.headers.update({'Accept': 'application/vnd.mason+json'})
+                resp = s.get(SERVER_URL + '/api/')
+                name_space = list(resp.json()['@namespaces'].keys())[0]
+                resource_loc = resp.json()['@controls'][f'{name_space}:plane-all']['href']
+                resp = s.put(
+                    SERVER_URL + resource_loc + f'{plane_id}/',
+                    data=json.dumps(data),
+                    headers={'Content-type': 'application/json'}
+                )
+
+            if resp.status_code != 204:
+                print(
+                    '\nThere was some error, the requested operation hasn\'t'
+                    ' been done.\n'
+                )
+                print('error code: ', resp.status_code)
+                return
+            print('\nThe information has been updated.\n')
+
+        option_mapping = {
+            'plane-all': view_all,
+            'GET': get,
+            'DELETE': delete,
+            'POST': post,
+            'PUT': put
+        }
+    # end of class Plane
+
+    @staticmethod
+    def plane_resource():
+        '''
+        Allows the user to access the plane resource.
+        '''
+        users_choice = not None
+
+        while users_choice:
+            users_choice = Prompt.from_plane_menu()
+            if users_choice:
+                Access.Plane.option_mapping[users_choice]()
+
+        return None
+
+
 
     @staticmethod
     def client_resource():

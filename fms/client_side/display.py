@@ -10,6 +10,35 @@ class Display:
     '''
 
     @staticmethod
+    def plane_menu():
+        '''
+        Displays the information for the plane menu.
+
+        Returns: dict that maps each number to the corresponding option.
+        '''
+        print(
+            """
+
+            You have the following options:
+
+            1) view the information for all the planes
+            2) Get the information for a specific plane
+            3) create a new plane
+            4) Delete the information for a specific plane
+            5) Update the information for a specific plane
+
+            """
+        )
+
+        return {
+            1: 'plane-all',
+            2: 'GET',
+            3: 'POST',
+            4: 'DELETE',
+            5: 'PUT'
+        }
+
+    @staticmethod
     def client_menu():
         '''
         Displays the information for the client menu.

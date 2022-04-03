@@ -35,6 +35,16 @@ class Prompt:
     This class provides different prompts for various menu screens.
     '''
 
+    @staticmethod
+    def from_plane_menu():
+        '''
+        Prompts the user from plane menu, and returns their choice.
+
+        Returns: None or the option that the user has chosen.
+        '''
+        mapping = Display.plane_menu()
+        return get_input(mapping)
+
 
     @staticmethod
     def from_client_menu():
