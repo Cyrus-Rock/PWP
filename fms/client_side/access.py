@@ -12,6 +12,82 @@ class Access:
     '''
     Provides methods to allow the user to access their chosen resource.
     '''
+    class Flight:
+        '''
+        Provides methods for differnt options chosen by the user for the flight resource.
+        '''
+        @staticmethod
+        def view_all():
+            '''
+            Shows the information for all the flights.
+            '''
+            with requests.Session() as s:
+                s.headers.update({'Accept': 'application/vnd.mason+json'})
+                resp = s.get(SERVER_URL + '/api/')
+                name_space = list(resp.json()['@namespaces'].keys())[0]
+                resource_loc = resp.json()['@controls'][f'{name_space}:flight-all']['href']
+                resp = s.get(SERVER_URL + resource_loc)
+
+            flights_list = resp.json()['flights_list']
+            print('\nHere is the information for all the flights:')
+            for i, flight in enumerate(flights_list, start=1):
+                print(
+                    f'{i}) Flight\'s id is "{flight["flight_id"]}" with '
+                    f'flight\'s date "{flight["flight_datetime"]}"; '
+                    f'the flight duration is "{flight["flight_duration"]}"; '
+                    f'the origin of the flight is "{flight["origin"]}" with '
+                    f'destionation "{flight["destination"]}"; '
+                    f'it was updated on "{flight["updated_on"]}"; '
+                    f'is it full? "{flight["full"]}"'
+                )
+                print()
+
+        @staticmethod
+        def get():
+            '''
+            Displays the information for a specific flight, based on the
+            provided origin and destination.
+            '''
+            origin = input( "Enter the origin > ")
+            destination = input( "Enter the destination > ")
+
+            with requests.Session() as s:
+                s.headers.update({'Accept': 'application/vnd.mason+json'})
+                resp = s.get(SERVER_URL + '/api/')
+                name_space = list(resp.json()['@namespaces'].keys())[0]
+                resource_loc = resp.json()['@controls'][f'{name_space}:flight-all']['href']
+                resp = s.get(
+                    SERVER_URL + resource_loc + f'/{origin}/{destination}/'
+                )
+
+            if resp.status_code != 200:
+                print("\nThere is no information for the provided criteria\n")
+                return
+
+            flights_list = resp.json()['flights_list']
+            print(
+                '\nHere is the information for all the flights based on the '
+                'criteria:'
+            )
+            for i, flight in enumerate(flights_list, start=1):
+                print(
+                    f'{i}) Flight\'s id is "{flight["flight_id"]}" with '
+                    f'flight\'s date "{flight["flight_datetime"]}"; '
+                    f'the flight duration is "{flight["flight_duration"]}"; '
+                    f'the origin of the flight is "{flight["origin"]}" with '
+                    f'destionation "{flight["destination"]}"; '
+                    f'it was updated on "{flight["updated_on"]}"; '
+                    f'is it full? "{flight["full"]}"'
+                )
+                print()
+
+
+        option_mapping = {
+            'flight-all': view_all,
+            'GET': get
+        }
+    # end of class Flight
+
 
     class Offer:
         '''
@@ -670,6 +746,20 @@ class Access:
             users_choice = Prompt.from_offer_menu()
             if users_choice:
                 Access.Offer.option_mapping[users_choice]()
+
+        return None
+
+    @staticmethod
+    def flight_resource():
+        '''
+        Allows user to access the flight resource.
+        '''
+        users_choice = not None
+
+        while users_choice:
+            users_choice = Prompt.from_flight_menu()
+            if users_choice:
+                Access.Flight.option_mapping[users_choice]()
 
         return None
 

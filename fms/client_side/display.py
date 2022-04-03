@@ -8,6 +8,31 @@ class Display:
     This class provides different methods to display different information
     for various menus.
     '''
+    @staticmethod
+    def flight_menu():
+        '''
+        Displays the information for the flight menu.
+
+        Returns: dict that maps each number to the corresponding option.
+        '''
+
+        print(
+            """
+
+            You have the following options:
+
+            1) View the information for all flights
+            2) Get the information for a specific flight
+
+            """
+        )
+
+        return {
+            1: 'flight-all',
+            2: 'GET',
+        }
+
+ 
 
     @staticmethod
     def offer_menu():

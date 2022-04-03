@@ -9,7 +9,8 @@ access_mapping = {
     'seat': Access.seat_resource,
     'client': Access.client_resource,
     'plane': Access.plane_resource,
-    'offer': Access.offer_resource
+    'offer': Access.offer_resource,
+    'flight': Access.flight_resource
 }
 
 def handle_user():
