@@ -1,0 +1,65 @@
+'''
+This module displays information for various menus.
+'''
+
+
+class Display:
+    '''
+    This class provides different methods to display different information
+    for various menus.
+    '''
+
+    @staticmethod
+    def seat_menu():
+        '''
+        Displays the information for the seat menu.
+
+        Returns: dict that maps each number to the corresponding option.
+        '''
+        print(
+            '''
+            You have the following options:
+
+            1) View the information for all the seats
+            2) Get the information for a specific seat
+            3) Delete the information for a specific seat
+            4) Create a new seat
+
+            '''
+        )
+
+        return {
+            1: 'seat-all',
+            2: 'GET',
+            3: 'DELETE',
+            4: 'POST'
+        }
+
+
+    @staticmethod
+    def main_menu():
+        '''
+        Displays the information for the main menu.
+
+        Returns: dict that maps each number to the corresponding resource.
+        '''
+        print(
+            '''
+            You have the following options:
+
+            1) Access the seat resource
+            2) Access the client resource
+            3) Access the plane resource
+            4) Access the offer resource
+            5) Access the flight resource
+
+            '''
+        )
+
+        return {
+            1: 'seat',
+            2: 'client',
+            3: 'plane',
+            4: 'offer',
+            5: 'flight'
+        }
