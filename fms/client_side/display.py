@@ -10,6 +10,28 @@ class Display:
     '''
 
     @staticmethod
+    def offer_menu():
+        '''
+        Displays the information for the offer menu.
+
+        Returns: dict that maps each number to the corresponding option.
+        '''
+
+        print(
+            """
+
+            You have the following options:
+
+            1) Get the information for a specific offer
+
+            """
+        )
+        return {
+            1: 'GET'
+        }
+
+
+    @staticmethod
     def plane_menu():
         '''
         Displays the information for the plane menu.
@@ -21,7 +43,7 @@ class Display:
 
             You have the following options:
 
-            1) view the information for all the planes
+            1) View the information for all the planes
             2) Get the information for a specific plane
             3) create a new plane
             4) Delete the information for a specific plane

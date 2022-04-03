@@ -13,6 +13,49 @@ class Access:
     Provides methods to allow the user to access their chosen resource.
     '''
 
+    class Offer:
+        '''
+        Provides methods for differnt options chosen by the user for the offer resource.
+        '''
+        @staticmethod
+        def get():
+            '''
+            Displays the information for a specific offer, based on the
+            provided token, origin and destination.
+            '''
+            token = input(
+                "Enter the token of the client you wish to see the "
+                "infromation for this offer > "
+            )
+
+            origin = input( "Enter the origin > ")
+            destination = input( "Enter the destination > ")
+
+            with requests.Session() as s:
+                s.headers.update({'Accept': 'application/vnd.mason+json'})
+                resource_loc = '/api/offers'
+                resp = s.get(
+                    SERVER_URL + resource_loc + f'/{token}/'
+                    f'{origin}/{destination}/'
+                    )
+
+            if resp.status_code != 200:
+                print("\nThere is no information for the provided criteria\n")
+                return
+
+            offers = resp.json()['offer_list']
+            print("Here is the list of offers for this client:")
+            for i, offer in enumerate(offers, start=1):
+                print(
+                    f'{i}) flight\'s id of the offer is "{offer["flight_id"]}" '
+                    f'and it is valid until "{offer["valid_until"]}"'
+                )
+            print()
+
+        option_mapping = {
+            'GET': get
+        }
+
     class Seat:
         '''
         Provides methods for differnt options chosen by the user for the seat resource.
@@ -613,6 +656,20 @@ class Access:
             users_choice = Prompt.from_client_menu()
             if users_choice:
                 Access.Client.option_mapping[users_choice]()
+
+        return None
+
+    @staticmethod
+    def offer_resource():
+        '''
+        Allows user to access the offer resource.
+        '''
+        users_choice = not None
+
+        while users_choice:
+            users_choice = Prompt.from_offer_menu()
+            if users_choice:
+                Access.Offer.option_mapping[users_choice]()
 
         return None
 

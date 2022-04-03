@@ -36,6 +36,16 @@ class Prompt:
     '''
 
     @staticmethod
+    def from_offer_menu():
+        '''
+        Prompts the user from offer menu, and returns their choice.
+
+        Returns: None or the option that the user has chosen.
+        '''
+        mapping = Display.offer_menu()
+        return get_input(mapping)
+
+    @staticmethod
     def from_plane_menu():
         '''
         Prompts the user from plane menu, and returns their choice.
