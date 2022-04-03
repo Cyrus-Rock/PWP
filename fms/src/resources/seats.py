@@ -86,7 +86,7 @@ class SeatItem(flask_restful.Resource):
             plane_id = flask.request.json['plane_id']
             cpcty = flask.request.json['capacity']
             seats = {k:cpcty[k] for k in cpcty}
-            updated_on = datetime.datetime.fromisoformat(flask.request.json['updated_on'])
+            #updated_on = datetime.datetime.fromisoformat(flask.request.json['updated_on'])
             
             seats_list = []
             for type in seats:
@@ -96,6 +96,7 @@ class SeatItem(flask_restful.Resource):
                         type=type)
                 db.config.db.session.add(seat)
                 seats_list.append(seat)
+            #seats_list[0].plane.updated_on = updated_on
             db.config.db.session.commit()
         except KeyError:
             return "Incomplete request - missing fields", 400

@@ -81,7 +81,7 @@ class TestSeat:
                 'Economic': 64,
                 'Business': 20
             },
-            'updated_on': str(datetime.now())
+            #'updated_on': str(datetime.now())
         }
         
         resp = tclient.post(s.RESOURCE_URI, json=seat)
@@ -93,7 +93,7 @@ class TestSeat:
         resp = tclient.post(s.RESOURCE_URI, data=seat)
         assert resp.status_code == 415 # content type must be json
 
-        resp = tclient.post(s.RESOURCE_URI, json=seat|{'updated_on': 0})
-        assert resp.status_code == 401 # invalid type
+        #resp = tclient.post(s.RESOURCE_URI, json=seat|{'updated_on': 0})
+        #assert resp.status_code == 401 # invalid type
 
 
