@@ -65,6 +65,17 @@ The result shows the default values that are provided by the python code. Feel f
 
 That's all for creating and populating the database.
 
+## Running the Client side
+After all the previous steps, we could issue the following command in the `fms` directory:
+```
+python -m flask run
+```
+to run the server side. Now we go to the `client_side` directory and issue the following command to run the client side of the code:
+```
+python main.py
+```
+This will run the main application menu. From there, we are directed by the instructions provided in the application.
+
 ## Testing
 
 ### Testing Database's Design and Utility Functions
