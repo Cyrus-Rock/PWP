@@ -66,15 +66,27 @@ The result shows the default values that are provided by the python code. Feel f
 That's all for creating and populating the database.
 
 ## Running the Client side
+We have provided both console and GUI interfaces for the client side. The following explains how to run them.
+
 After all the previous steps, we could issue the following command in the `fms` directory:
 ```
 python -m flask run
 ```
-to run the server side. Now we go to the `client_side` directory and issue the following command to run the client side of the code:
+to run the server side.
+
+### Consolde Interface
+Now we go to the `client_side` directory and issue the following command to run the client side of the code in console:
 ```
 python main.py
 ```
 This will run the main application menu. From there, we are directed by the instructions provided in the application.
+
+### GUI Interface
+In the `client_side` directory enter the following command:
+```
+python GUI.py
+```
+Now, you should be able to see the GUI interface of the application.
 
 ## Testing
 
