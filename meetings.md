@@ -54,15 +54,14 @@ Since everything was implemented fully, no further actions was required.
 *ONLY USED BY COURSE STAFF: Additional comments from the course staff*
 
 ## Meeting 4.
-* **DATE:**
-* **ASSISTANTS:**
+* **DATE:07/04/2022**
+* **ASSISTANTS: Mika Oja**
 
-### Minutes
-*Summary of what was discussed during the meeting*
+### Minutes: 30 mins
+Everything was checked by the instructor and we received the full mark for every evaluation regarding DL4.
 
 ### Action points
-*List here the actions points discussed with assistants*
-
+Since everything was implemented fully, no further actions was required.
 
 ### Comments from staff
 *ONLY USED BY COURSE STAFF: Additional comments from the course staff*
