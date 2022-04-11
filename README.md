@@ -63,6 +63,10 @@ SELECT * FROM flight;
 
 The result shows the default values that are provided by the python code. Feel free to check other default values for the other tables as well.
 
+The following shows the whole process in action:
+
+![](demonstration_gifs/db_pop.gif)
+
 That's all for creating and populating the database.
 
 ## Testing
