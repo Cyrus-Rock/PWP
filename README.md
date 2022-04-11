@@ -113,7 +113,11 @@ After running the server with the following command from the `fms` directory:
 ```
 python -m flask run
 ```
-We could see the API documentation by browsing localhost:5000:/apidocs/
+We could see the API documentation by browsing `localhost:5000/apidocs/`.
+
+The following is the visual depiction of the process:
+
+![](demonstration_gifs/apidocs.gif)
 
 # Group information
 * Student 1. Alireza Bakhshi Zadi Mahmoodi (Alireza(dot)BakhshiZadiMahmoodi(at)student(dot)oulu(dot)fi)
