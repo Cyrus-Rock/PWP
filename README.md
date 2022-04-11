@@ -98,6 +98,10 @@ We could also issue the following command to see the coverage of the tests:
 python -m pytest --cov .
 ```
 
+The following shows the coverage test in action:
+
+![](demonstration_gifs/test_cov.gif)
+
 That's all for the tests.
 
 ## How to see the API documentation
