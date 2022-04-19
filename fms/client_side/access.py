@@ -1,9 +1,9 @@
 '''
 This module allows the user to access different resources.
 '''
-import requests
 import json
 from datetime import datetime
+import requests
 from prompt import Prompt
 
 SERVER_URL = 'http://localhost:5000'
@@ -717,8 +717,6 @@ class Access:
             if users_choice:
                 Access.Plane.option_mapping[users_choice]()
 
-        return None
-
 
 
     @staticmethod
@@ -733,8 +731,6 @@ class Access:
             if users_choice:
                 Access.Client.option_mapping[users_choice]()
 
-        return None
-
     @staticmethod
     def offer_resource():
         '''
@@ -746,8 +742,6 @@ class Access:
             users_choice = Prompt.from_offer_menu()
             if users_choice:
                 Access.Offer.option_mapping[users_choice]()
-
-        return None
 
     @staticmethod
     def flight_resource():
@@ -761,8 +755,6 @@ class Access:
             if users_choice:
                 Access.Flight.option_mapping[users_choice]()
 
-        return None
-
     @staticmethod
     def seat_resource():
         '''
@@ -774,5 +766,3 @@ class Access:
             users_choice = Prompt.from_seat_menu()
             if users_choice:
                 Access.Seat.option_mapping[users_choice]()
-
-        return None

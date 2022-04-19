@@ -32,8 +32,6 @@ class Display:
             2: 'GET',
         }
 
- 
-
     @staticmethod
     def offer_menu():
         '''

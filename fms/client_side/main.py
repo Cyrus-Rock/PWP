@@ -32,4 +32,3 @@ while True:
     users_choice = handle_user()
     if not users_choice:
         break
-
