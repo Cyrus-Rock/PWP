@@ -74,7 +74,7 @@ python -m flask run
 ```
 to run the server side.
 
-### Consolde Interface
+### Console Interface
 Now we go to the `client_side` directory and issue the following command to run the client side of the code in console:
 ```
 python main.py
@@ -84,7 +84,7 @@ This will run the main application menu. From there, we are directed by the inst
 ### GUI Interface
 In the `client_side` directory enter the following command:
 ```
-python GUI.py
+python gui.py
 ```
 Now, you should be able to see the GUI interface of the application.
 
