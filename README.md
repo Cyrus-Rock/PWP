@@ -134,7 +134,7 @@ We could see the API documentation by browsing localhost:5000:/apidocs/
 * Student 1. Alireza Bakhshi Zadi Mahmoodi (Alireza(dot)BakhshiZadiMahmoodi(at)student(dot)oulu(dot)fi)
 * Student 2. Valtteri Kuosmanen (vkuosman(at)student(dot)oulu(dot)fi)
 * Student 3. Ali Heikal (Ali(dot)Heikal(at)student(dot)oulu(dot)fi)
-* Student 4. Name and email 
+* Student 4. Nguyen Thi Thu Nhi (thi(dot)3(dot)nguyen(at)student(dot)oulu(dot)fi)
 
 __Remember to include all required documentation and HOWTOs, including how to create and populate the database, how to run and test the API, the url to the entrypoint and instructions on how to setup and run the client__
 
