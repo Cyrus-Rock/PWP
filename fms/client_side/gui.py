@@ -2,7 +2,7 @@
 import tkinter as tk
 from tkinter import font
 import gui_functions
-#from PIL import Image, ImageTk
+from PIL import Image, ImageTk
 #from tkinter import ttk
 #import os
 
@@ -10,16 +10,41 @@ import gui_functions
 def create_top_bar(self, color):
     """Creating a pseudo top bar"""
     justifier = ' ' * 193
-    button_submit = tk.Button(self,
+    button_bar = tk.Button(self,
     # An EXTREMELY janky solution, change in the future
-    text="🌠 Generic GUI" + justifier,
-    bg= color,
-    fg='#ffffff',
-    bd=0,
-    font= font.Font(family='Helvitica', size=18),
-    height=1,
-    width=172)
-    button_submit.pack()
+    text = "🌠 Generic GUI" + justifier,
+    bg = color,
+    fg = '#ffffff',
+    bd = 0,
+    font = font.Font(family='Helvetica', size=18),
+    height = 1,
+    width = 172)
+    button_bar.pack()
+
+# Border creation function
+def create_border(self, color):
+    """Creating a pseudo border"""
+    button_border = tk.Button(self,
+    # A janky solution
+    text = " ",
+    bg = color,
+    fg = '#ffffff',
+    bd = 0,
+    font= font.Font(family='Helvetica', size=18),
+    height = 20,
+    width =26)
+    button_border.pack()
+    button_border.place(bordermode=tk.OUTSIDE, x=790, y=102)
+
+def show_image(self, boolean):
+    """Displaying an image"""
+    image = Image.open("../images/plane.png")
+    image_test = ImageTk.PhotoImage(image)
+    image_label = tk.Label(self, image=image_test)
+    image_label.image = image_test
+    # Adjusting the position of the image
+    if boolean is True:
+        image_label.place(bordermode=tk.OUTSIDE, x=820, y=130)
 
 title_font =("Helvetica", 35)
 
@@ -52,6 +77,7 @@ class tkinterApp(tk.Tk):
 
     def show_frame(self, cont):
         """This is used to display a new page"""
+        show_image(self, False)
         frame = self.pages[cont]
         frame.tkraise()
 
@@ -61,6 +87,8 @@ class a1(tk.Frame):
         tk.Frame.__init__(self, parent)
 
         create_top_bar(self, '#eb4f34')
+        create_border(self, '#eb4f34')
+        show_image(self, True)
 
         # Defining the buttons
         button_a1 = tk.Button(self, text ="Access the seat resource", height=2, width=40,
@@ -85,18 +113,6 @@ class a1(tk.Frame):
         button_a4.place(bordermode=tk.OUTSIDE, x=140, y=390+50)
         button_a5.pack()
         button_a5.place(bordermode=tk.OUTSIDE, x=140, y=470+50)
-
-        # Creating an image object
-        #image = Image.open("./plane.png")
-        #image_test = ImageTk.PhotoImage(image)
-        #image_label = tk.Label(image=image_test)
-        #image_label.image = image_test
-        # Adjusting the position of the image
-        #image_label.place(x=730, y=110)
-
-        # Creating and placing the text box
-        text_box = tk.Text(self, height=30, width=105)
-        text_box.place(x=530, y=110+50)
 
         # Creating and placing text sections
         label1 = tk.Label(self, text = "Your options are:")
@@ -269,6 +285,8 @@ class b4(tk.Frame):
         label1.place(x=140, y=140)
 
         create_top_bar(self, '#8b32c2')
+        create_border(self, '#8b32c2')
+        show_image(self, True)
 
         # Defining the buttons
         button_b4_c1 = tk.Button(self, text ="Get the information for a specific offer",
@@ -283,8 +301,8 @@ class b4(tk.Frame):
         button_b4_back.pack()
         button_b4_back.place(bordermode=tk.OUTSIDE, x=140, y=230+50)
 
-        text_box = tk.Text(self, height=30, width=105)
-        text_box.place(x=530, y=110+50)
+        #text_box = tk.Text(self, height=30, width=105)
+        #text_box.place(x=530, y=110+50)
 
 class b5(tk.Frame):
     """The flight page"""
